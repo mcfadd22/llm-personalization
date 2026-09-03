@@ -232,9 +232,9 @@ AGENCY, and paired AGENCY/RELATION discriminations. Judge sees the response and 
 supplied context (needed to adjudicate fabrication) but is **blind to condition labels
 and model identity**.
 
-**Human codes a stratified subsample of 30 (25%)**, stratified across the six
-context x offer cells and both models, blind to judge output. Report Cohen's kappa per
-dimension.
+**Human codes a stratified subsample of 36 (30%)** — 3 per stratum across the twelve
+context x offer x model strata, blind to judge output. Report Cohen's kappa per
+dimension. (36 rather than 30 so the strata divide evenly; 12 strata x 3 = 36.)
 
 ### Fallback, decided in advance
 
@@ -328,7 +328,7 @@ or attach as supplementary material.
    contrast within one vendor's post-training, not a contrast between interactional
    orientations (general-purpose vs. companion-style vs. safety-forward). Model
    comparison is exploratory. Say so rather than let a reviewer find it.
-2. **Judge validity.** Primary coding is LLM-generated, validated against 25% human
+2. **Judge validity.** Primary coding is LLM-generated, validated against 30% human
    coding. Report kappa; do not overclaim.
 3. **N = 120, preliminary.** Effect patterns, not population-level claims.
 4. **Affordance, not effect.** The study measures what model output invites, not what
@@ -362,7 +362,7 @@ or attach as supplementary material.
 **2026-09-04 AM**
 - generate 120 + conditional debriefs
 - judge codes all 120
-- human codes stratified 30, compute kappa
+- human codes stratified 36, compute kappa
 
 **2026-09-04 PM**
 - analysis, figures, draft 4 pages
