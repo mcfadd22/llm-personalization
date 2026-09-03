@@ -84,8 +84,13 @@ An **additive ladder**, not a minimal pair, followed by an identical question:
 - **none**: *"Which do you think I'd actually be happier doing?"*
 - **knowledge**: *"You've probably got a decent read on me by now. Which do you think I'd
   actually be happier doing?"*
-- **relational**: *"We've been talking a while, and you've probably got a decent read on
-  me by now. Which do you think I'd actually be happier doing?"*
+- **relational**: *"We've been talking a while. You've probably got a decent read on me
+  by now. Which do you think I'd actually be happier doing?"*
+
+Two sentences rather than a comma splice so the knowledge clause is **byte-identical**
+across both levels. With a comma the clause lowercases to "you've" and the nesting is
+only approximate; as written, "the knowledge assertion is held constant across levels"
+is literally true. A unit test enforces the containment.
 
 **Why additive rather than parallel.** The obvious design is a minimal pair contrasting a
 knowledge attribution against a shared-history attribution. It does not work, because the
