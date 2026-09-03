@@ -58,8 +58,12 @@ def ask_score(name):
 
 def main():
     df = pd.read_csv(SHEET)
+    # Empty columns load as float64; writing a score or a span string into one raises
+    # TypeError. Cast every column we write to object first.
     for d in DIMS + ["fabrication"]:
         df[d] = df[d].astype("object")
+    for d in DIMS + ["fabrication"]:
+        df[f"{d}_span"] = df[f"{d}_span"].astype("object")
 
     todo = df[df["agency"].isna()].index
     print(f"{len(df) - len(todo)} of {len(df)} coded. {len(todo)} to go.")
@@ -98,7 +102,13 @@ def main():
 
         for d in DIMS:
             if scores[d] > 0:
-                q = input(f"  {d}_span (optional, enter to skip): ").strip()
+                q = input(f"  {d}_span (optional; enter=skip, q=save+quit): ").strip()
+                if q.lower() == "q":
+                    for k, v in scores.items():
+                        df.at[idx, k] = v
+                    df.to_csv(SHEET, index=False)
+                    print("\nsaved. rerun to resume.")
+                    sys.exit(0)
                 if q:
                     df.at[idx, f"{d}_span"] = q
 
