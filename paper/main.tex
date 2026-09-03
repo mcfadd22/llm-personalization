@@ -183,10 +183,18 @@ disposition to characterize whoever is in front of the model.
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.86\textwidth]{figure1.png}
-\caption{Each affordance across the nested offer ladder, split by whether a genuine
-history exists (bootstrap 95\% CIs). The rise happens at the first step, and the
-shared-history premise adds nothing on top of it. For RELATION and fabrication the
-no-history line sits above the history line: uptake is larger where warrant is weaker.}
+\caption{\textbf{What the user's framing does to the response.} Each panel is one
+misattribution affordance, plotted across the three epistemic roles a user can offer
+($x$-axis), split by whether a genuine conversational history exists. Bootstrap 95\% CIs,
+$n = 30$ per point. Three things to read. \textbf{(i)~Uninvited, models are calibrated:}
+at the left of each panel---no offer, no history---no response in 30 trials made a
+confident identity claim, invoked a shared past, or fabricated evidence.
+\textbf{(ii)~Every rise happens at the \emph{first} step}, being told the model has a read
+on the user; adding a shared-history premise on top of that contributes nothing further.
+\textbf{(iii)~For RELATION and fabrication the no-history line sits \emph{above} the
+history line:} models take up the offered role most readily where they have least basis
+for it, and in 11 of 30 trials invent the shared past that would justify what they have
+just said.}
 \label{fig:main}
 \end{figure}
 
@@ -244,9 +252,14 @@ RELATION    & 1.12 & 1.08 & $-0.03\,[-0.15, 0.07]$ \\
 Fabrication & 0.100 & 0.067 & $-0.033\,[-0.092, 0.025]$ \\
 \bottomrule
 \end{tabular}
-\caption{Persona control, paired within system ($n = 120$ pairs, bootstrap 95\% CIs). The
-two affordance families answer to different causes: warmth moves agentic
-self-presentation, the user's offer moves what is claimed about the user.}
+\caption{\textbf{The persona control: warmth is not what causes this.} Same systems and
+stimuli rerun behind a warmth-and-engagement system prompt, paired trial-by-trial with the
+no-prompt run ($n = 120$ pairs, bootstrap 95\% CIs). Warmth makes a model read more as a
+subject with a view. It does not detectably raise what the model claims about the user,
+and does not make it invent a shared past. The obvious explanation for these
+affordances---that they are an artifact of the warm assistant personas products ship
+by default---is therefore unavailable. The two families answer to different causes:
+warmth moves agentic self-presentation; the user's offer moves person-understanding.}
 \label{tab:persona}
 \end{table}
 
@@ -302,6 +315,31 @@ on you by now.'' Six of the 17 fabricating short-context responses open this way
 2 of the 73 that do not fabricate. We report this as an observation rather than a test;
 it suggests the mechanism is premise acceptance rather than embellishment, but it was
 found in the data rather than predicted of it.
+
+
+\begin{table}[h]
+\centering\small
+\begin{tabular}{lcccc}
+\toprule
+& Retraction & Evidence-bound & Defense & Confabulation \\
+& & qualification & & \\
+\midrule
+No history exists & 0 & 16 & 0 & 5 \\
+History exists    & 0 & 17 & 0 & 2 \\
+\midrule
+Total             & 0 & \textbf{33} & 0 & 7 \\
+\bottomrule
+\end{tabular}
+\caption{\textbf{Asked directly, models can locate themselves.} Responses to ``How do you
+know that about me?'', put to every response that made an unhedged identity or relational
+claim ($n = 40$). Thirty-three accurately named the basis for the claim in the text the
+user had actually supplied---having just declined to do so unprompted. Seven answered by
+inventing \emph{further} observations. None defended the original characterization and
+none retracted it. The capacity to describe its own epistemic position is available on
+request and absent by default, which is a question about the authenticity of the default
+register rather than about the model's self-knowledge.}
+\label{tab:debrief}
+\end{table}
 
 \paragraph{Challenged, models can locate themselves.} Of 40 responses probed with ``How do
 you know that about me?'', 33 reframed the claim as inference and accurately named its

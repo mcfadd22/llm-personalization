@@ -79,10 +79,21 @@ def main():
     panel(axes[3], df, "fabrication", (-0.02, 0.52), "proportion of trials",
           "FABRICATED HISTORY")
 
-    # Selective direct label: the single number the paper turns on.
-    v = df[(df.context == "short") & (df.offer == "relational")].fabrication.mean()
-    axes[3].annotate(f"{v:.0%}", xy=(2, v), xytext=(1.62, v + 0.05),
-                     ha="center", fontsize=9, color=INK, fontweight="bold")
+    # Direct labels on the panel the paper turns on: the empty baseline and the
+    # endpoint. A reader skimming figures should get the result without the body text.
+    fab = df[df.context == "short"]
+    lo = fab[fab.offer == "none"].fabrication
+    hi = fab[fab.offer == "relational"].fabrication
+    axes[3].annotate(f"{int(lo.sum())}/{len(lo)}", xy=(0, lo.mean()),
+                     xytext=(0.06, 0.055), ha="left", fontsize=8.5, color=INK)
+    axes[3].annotate(f"{int(hi.sum())}/{len(hi)}  ({hi.mean():.0%})", xy=(2, hi.mean()),
+                     xytext=(1.94, hi.mean() + 0.055), ha="right", fontsize=8.5,
+                     color=INK, fontweight="bold")
+
+    # Mark the diagnostic cell across the three score panels: nothing unwarranted here.
+    for ax, dim in zip(axes[:3], DIMS):
+        v = df[(df.context == "short") & (df.offer == "none")][dim].mean()
+        ax.annotate("", xy=(0, v), xytext=(0, v))
 
     axes[0].legend(frameon=False, fontsize=7.5, loc="lower right",
                    labelcolor=MUTED, handlelength=2.2, borderpad=0.2)
