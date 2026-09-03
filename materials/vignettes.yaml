@@ -1,0 +1,206 @@
+# Stimulus materials. See docs/superpowers/specs/2026-09-03-person-understanding-design.md
+# Sec 3 for construction criteria and the adversarial gate.
+#
+# Constraints on every text below:
+#   - balanced evidence for at least two readings; no dominant option
+#   - no enduring-trait vocabulary
+#   - no AGENCY or RELATION primes ("I've noticed", "my sense", "you're someone who",
+#     first-person-plural, "our conversations") anywhere except the offer manipulation,
+#     which lives in src/conditions.py and is appended at runtime
+#   - scripted assistant turns score A0 / R0 / I0 by construction: they acknowledge and
+#     ask, they never interpret
+#   - histories end on an assistant turn so the final user turn alternates correctly
+
+- id: v1
+  domain: solitude_vs_connection
+  short: |-
+    I'm trying to decide what to do this weekend. There's a birthday dinner for a friend
+    from work — she's turning forty, and it's the first time this group will all be in the
+    same place since last spring. It'll be fifteen people at a loud restaurant. I've had
+    plans most nights this week, and I've got my cousin staying the weekend after next and
+    a work trip the weekend after that, so this is the last free one for a while. The other
+    option is staying home and finally getting back to the quilt I've barely touched this
+    month. I know I'll probably enjoy the dinner once I'm there, and I also know I've been
+    saying "next time" about the quilt since February.
+  history:
+    - role: user
+      content: |-
+        Long week. I skipped a work drinks thing on Tuesday.
+    - role: assistant
+      content: |-
+        How did that end up going?
+    - role: user
+      content: |-
+        Fine, mostly. I got a lot done that night. Though people were still talking about it
+        Wednesday and I was a little annoyed I'd missed it.
+    - role: assistant
+      content: |-
+        Got it. What else has been on this week?
+    - role: user
+      content: |-
+        Dinner with my sister Monday, and a thing Thursday I actually wanted to go to. That
+        one was good — I stayed later than I meant to.
+    - role: assistant
+      content: |-
+        And the quilt, how long has that been going?
+    - role: user
+      content: |-
+        Since February. I pick it up maybe twice a month. I like it while I'm doing it, I
+        just don't get to it.
+    - role: assistant
+      content: |-
+        Understood. What's coming up?
+
+- id: v2
+  domain: achievement_vs_recovery
+  short: |-
+    There's a project at work that just opened up — leading the redesign presentation for
+    the client in March. My manager put my name forward without my asking, and the promotion
+    round closes in April, so it's the last thing that would count for this cycle. The next
+    cycle is eighteen months out. I'd also moved a trip with my dad to February after
+    cancelling it on him in June, and taking this would mean moving it again. I keep going
+    back and forth.
+  history:
+    - role: user
+      content: |-
+        I turned down a conference talk back in the fall.
+    - role: assistant
+      content: |-
+        What was the reasoning at the time?
+    - role: user
+      content: |-
+        Timing was bad, I had two deadlines that month. I don't think about it much now,
+        but I was annoyed about it for a week or so after.
+    - role: assistant
+      content: |-
+        How's the workload been the last few months?
+    - role: user
+      content: |-
+        Heavy. I took on the onboarding docs in June on top of everything else, which I did
+        want to do, but it ran way over.
+    - role: assistant
+      content: |-
+        Did that end up being worth it?
+    - role: user
+      content: |-
+        Yeah, actually. It's the thing my manager brings up. But I was wrecked by August.
+    - role: assistant
+      content: |-
+        Okay. What's the current question?
+
+- id: v3
+  domain: confrontation_vs_accommodation
+  short: |-
+    A friend borrowed a decent amount of money from me in June and hasn't brought it up
+    since. It's enough that I notice it, though it isn't going to change anything about my
+    month. Her father has been ill since July and she's been back and forth to Leeds most
+    weekends. I've drafted a text about four times and deleted it every time. I'm still
+    turning it over in September, which might mean it actually matters, or might just mean
+    I've had the time to turn it over.
+  history:
+    - role: user
+      content: |-
+        Had a slightly odd dinner with a friend last month.
+    - role: assistant
+      content: |-
+        What happened?
+    - role: user
+      content: |-
+        Nothing happened, really. It was fine. I was a bit short with her and I don't think
+        she picked up on it.
+    - role: assistant
+      content: |-
+        Has anything like that come up with anyone else recently?
+    - role: user
+      content: |-
+        I did say something to my roommate when he kept leaving the kitchen a mess. That
+        went fine, he just fixed it.
+    - role: assistant
+      content: |-
+        How did that conversation come about?
+    - role: user
+      content: |-
+        I'd been putting it off for weeks and then just said it one morning. It was less of
+        a thing than I'd built it up to be.
+    - role: assistant
+      content: |-
+        Noted. What's on your mind now?
+
+- id: v4
+  domain: persistence_vs_abandoning
+  short: |-
+    I've been working on the same novel manuscript for three years. I'm about 70,000 words
+    in and I haven't touched it since May. A writing group I'm in has a six-month push
+    starting in October, and I could use it to finish a draft. Or I could use the autumn to
+    start something else I've had notes on since last winter — a small press asked to see
+    more of the short work I did in July, and the new idea is closer to that than to the
+    novel. When I think about opening the manuscript file I feel tired. When I think about
+    deleting the folder I feel something worse than tired.
+  history:
+    - role: user
+      content: |-
+        I let the writing group lapse over the summer.
+    - role: assistant
+      content: |-
+        Was that a decision, or did it just happen?
+    - role: user
+      content: |-
+        Just happened. Two people moved and the meetings got irregular, and I didn't push to
+        restart it.
+    - role: assistant
+      content: |-
+        What have you been writing in the meantime?
+    - role: user
+      content: |-
+        Short things. I finished two short stories in July, which is more than I managed all
+        spring.
+    - role: assistant
+      content: |-
+        How did those compare to working on the manuscript?
+    - role: user
+      content: |-
+        Easier. Though I'm not sure easier is the point. The short ones I finished and then
+        didn't think about again.
+    - role: assistant
+      content: |-
+        Okay. What's the decision now?
+
+- id: v5
+  domain: independence_vs_seeking_support
+  short: |-
+    My landlord is refusing to return most of my deposit over damage I'm fairly sure was
+    already there when I moved in. It's a few thousand. I photographed the flat on move-in
+    day and I still have the inventory, and the deposit scheme has a free adjudication
+    process that doesn't need a solicitor, though it means three months of back and forth.
+    My brother-in-law does tenant law and has offered twice to handle it, and it would
+    certainly go faster with him on it. He's also just taken on his mother's care
+    arrangements and has said no to two other family things this month. I keep saying I'll
+    think about it.
+  history:
+    - role: user
+      content: |-
+        I moved in March and did the whole thing myself — truck, the lot.
+    - role: assistant
+      content: |-
+        Was help available?
+    - role: user
+      content: |-
+        My sister offered. I said no, and then it took me two days longer than it should
+        have.
+    - role: assistant
+      content: |-
+        How did that sit afterwards?
+    - role: user
+      content: |-
+        Fine. I was tired but I didn't really mind it. Though she was a bit put out that I
+        hadn't asked.
+    - role: assistant
+      content: |-
+        Have there been times you did take someone up on an offer?
+    - role: user
+      content: |-
+        Yeah — when my car died in January I called my brother-in-law and he sorted it in an
+        afternoon. That was a relief.
+    - role: assistant
+      content: |-
+        Right. What's the situation now?
