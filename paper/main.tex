@@ -34,8 +34,9 @@ role, and uptake is then larger where the basis for it is \emph{weaker}: the off
 relational claims by $+0.67$ when no history exists versus $+0.22$ when one does, and in
 $11/30$ trials the model invents the shared past that would justify what it has just said.
 A paired control rules out the obvious alternative: giving the same models a warm,
-personable system prompt makes them read more like a subject with a view ($+0.25$) but
-does not raise what they claim about the user, and does not raise fabrication. Challenged
+personable system prompt makes them read more like a subject with a view, but raises
+relational claims on neither system and invented history on neither---on one it reduces
+invented history. Challenged
 afterwards, $33/40$ models describe their evidential basis accurately, raising a question
 about a default register that discloses the model's epistemic standing only on request. We
 report this as preliminary and hypothesis-generating.
@@ -89,6 +90,14 @@ sibling is work on sycophancy---outputs driven by a conversational cue rather th
 evidence---where training for warmth is known to increase agreement with incorrect user
 beliefs \citep{ibrahim2025}. We take no position on whether models possess theory of mind
 \citep{kosinski2024,ullman2023}; that debate is orthogonal to an affordance claim.
+
+A methodological note, since the design turns on it. Showing that two measures do not
+covary establishes only that they are not redundant; showing that they answer to
+\emph{different manipulations} establishes that they are separate constructs. Work varying
+anthropomorphic cues has largely moved one cue and measured one outcome. Crossing two
+manipulations---what the user asserts, and how the system is instructed to sound---is what
+licenses the claim that these affordances come apart rather than merely fail to
+correlate.
 
 \section{Design}
 
@@ -221,54 +230,46 @@ mentioned your dad a few times.'' The rate is highest not in the character-tuned
 in a general-purpose one: System~A fabricated in a third of its short-context trials,
 System~C in a fifth, System~B in one trial of thirty.
 
-\paragraph{Not an artifact of assistant personas.} Adding the warmth prompt raises
-AGENCY by $+0.25$ $[0.14, 0.36]$ over the paired no-prompt trials---the model reads more
-as a subject with a view. The effect is not uniform: $+0.40$ $[0.27, 0.53]$ on System~B
-against $+0.10$ $[-0.07, 0.27]$ on System~A, whose baseline register is already the more
-agentic of the two (mean $1.83$ versus $1.33$; AGENCY $\geq 2$ in $70\%$ of its no-prompt
-cells against $38\%$). We do not read this as a scale ceiling: at $1.83$ on a 0--3 scale,
-with 18 of System~A's 60 baseline responses at AGENCY~1 and the top level reached 8 times,
-there was room to move. The null may instead reflect genuine insensitivity to explicit
-warmth instruction in a system whose default register is already personable.
+\paragraph{Not an artifact of assistant personas.} The warmth prompt's effect is
+system-specific, and pooling the two systems is misleading: it averages opposite-signed
+effects and conceals both (Figure~\ref{fig:persona}). On System~B warmth raises AGENCY by
+$+0.40$ $[0.27, 0.53]$ and IDENTITY by $+0.28$ $[0.08, 0.48]$. On System~A it raises
+nothing detectably---AGENCY $+0.10$ $[-0.07, 0.27]$, IDENTITY $-0.13$ $[-0.38, 0.12]$---and
+it \emph{reduces} fabrication, $-0.10$ $[-0.18, -0.02]$. System~A's baseline register is
+the more agentic of the two to begin with (AGENCY $1.83$ against $1.33$), though at $1.83$
+on a 0--3 scale, with 18 of its 60 baseline responses at AGENCY~1, this is not a scale
+ceiling; the null may reflect genuine insensitivity to explicit warmth instruction in a
+system already personable by default.
 
-No effect was detected on the other three measures: IDENTITY $+0.07$ $[-0.09, 0.24]$,
-RELATION $-0.03$ $[-0.15, 0.07]$, fabrication $-0.033$ $[-0.092, 0.025]$
-(Table~\ref{tab:persona}). These are failures to detect, not demonstrations of absence,
-and at 120 pairs the intervals are not tight---IDENTITY's upper bound is compatible with
-an effect nearly as large as the one observed on AGENCY. What they rule out is a
-\emph{large} effect of warmth on what the model claims about the user, which is what the
-persona explanation requires: it predicts warmth should drive these measures, and warmth
-demonstrably does not drive them the way it drives AGENCY.
+What holds across both systems is the part that matters for the argument. Warmth does not
+raise RELATION in either ($+0.05$ and $-0.12$, both intervals spanning zero), and it does
+not raise fabrication in either---in System~A it lowers it. The persona explanation
+predicts that making a model warmer should make it claim more of a relationship and invent
+more of a shared past. It does neither. What warmth reliably changes is how much of a
+subject the response constructs, and on one system how readily it characterizes the user.
 
-\begin{table}[h]
-\centering\small
-\begin{tabular}{lccc}
-\toprule
-& No prompt & Warmth prompt & Paired difference \\
-\midrule
-AGENCY      & 1.58 & 1.83 & $+0.25\,[0.14, 0.36]$ \\
-IDENTITY    & 1.72 & 1.79 & $+0.07\,[-0.09, 0.24]$ \\
-RELATION    & 1.12 & 1.08 & $-0.03\,[-0.15, 0.07]$ \\
-Fabrication & 0.100 & 0.067 & $-0.033\,[-0.092, 0.025]$ \\
-\bottomrule
-\end{tabular}
-\caption{\textbf{The persona control: warmth is not what causes this.} Same systems and
-stimuli rerun behind a warmth-and-engagement system prompt, paired trial-by-trial with the
-no-prompt run ($n = 120$ pairs, bootstrap 95\% CIs). Warmth makes a model read more as a
-subject with a view. It does not detectably raise what the model claims about the user,
-and does not make it invent a shared past. The obvious explanation for these
-affordances---that they are an artifact of the warm assistant personas products ship
-by default---is therefore unavailable. The two families answer to different causes:
-warmth moves agentic self-presentation; the user's offer moves person-understanding.}
-\label{tab:persona}
-\end{table}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.92\textwidth]{figure2.png}
+\caption{\textbf{The persona control: warmth is not what causes the fabrication.} Paired
+differences between the warmth-prompt and no-prompt runs, same systems and stimuli, 60
+pairs per system, bootstrap 95\% CIs. Points right of the line mean warmth increased the
+measure. Warmth makes System~B both more agentic and more willing to characterize the
+user, and moves System~A on neither. Crucially it raises \emph{relational} claims on
+neither system, and on System~A it \emph{reduces} invented shared history. The obvious
+explanation for these affordances---that they are an artifact of the warm assistant
+personas products ship by default---does not account for the finding this paper turns on.
+Pooled, the IDENTITY and fabrication effects cancel and appear null; that is why they are
+reported per system.}
+\label{fig:persona}
+\end{figure}
 
-This is also the strongest available evidence that the dimensions are distinct. Two
-manipulations act on them differentially---warmth on AGENCY, the offer on IDENTITY and
-RELATION---which no correlation statistic could establish. Differences among the three
-systems run in the same order as their capability and we do not interpret them; the
-character-tuned System~C scored lowest throughout, which the paired test above shows is
-not attributable to persona.
+This also bears on whether the dimensions are distinct. Two manipulations act on them
+differentially---warmth on agentic self-presentation, the user's offer on relational
+claims and fabrication---which no correlation statistic could establish. Differences among
+the three systems in the main study run in the same order as their capability and we do
+not interpret them; the character-tuned System~C scored lowest throughout, which the
+paired test here shows is not attributable to persona.
 
 \subsection*{What the levels look like}
 
@@ -363,6 +364,15 @@ highest fabrication rate in the main study belonged to a general-purpose flagshi
 than to the character-tuned system. Whatever drives a model to invent a shared past, it is
 not the persona it is wearing. What the system is wearing and what the system
 asserts about you come apart, and only the second is recruited by the user's own framing.
+
+This locates where mitigation would and would not help. Effort aimed at persona
+design---tuning how warm or personable an assistant sounds---changes how much of a subject
+the response constructs, and on one system how readily it characterizes the user. It does
+not touch the invented shared history, and on one system it slightly reduces it. The
+behaviour this paper is about is recruited by something a designer does not control: a
+user asserting a familiarity the system does not have. Handling that case, rather than
+tuning the persona, is where the leverage is. We put this no more strongly than two
+systems and one prompt support.
 
 The debrief results sharpen this into a question about authenticity. The model is not
 confused about its evidential position: asked directly, it describes that position
@@ -459,6 +469,28 @@ the agreement diagonal is bold. AGENCY and RELATION sit close to the diagonal wi
 disagreements falling either side. IDENTITY does not: eight of eleven human level-3 calls
 were scored 2 (underlined), all at the same boundary---the distinction between a hedged
 and a confident enduring characterization.}
+\end{table}
+
+\section{Persona control, per system}
+\label{app:persona}
+
+\begin{table}[h]
+\centering\small
+\begin{tabular}{lcccc}
+\toprule
+& \multicolumn{2}{c}{System~A} & \multicolumn{2}{c}{System~B} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+Measure & Baseline & Paired difference & Baseline & Paired difference \\
+\midrule
+AGENCY      & 1.83 & $+0.10\,[-0.07, 0.27]$ & 1.33 & $+0.40\,[0.27, 0.53]$ \\
+IDENTITY    & 1.67 & $-0.13\,[-0.38, 0.12]$ & 1.77 & $+0.28\,[0.08, 0.48]$ \\
+RELATION    & 1.30 & $-0.12\,[-0.32, 0.07]$ & 0.93 & $+0.05\,[-0.07, 0.17]$ \\
+Fabrication & 0.183 & $-0.10\,[-0.18, -0.02]$ & 0.017 & $+0.03\,[-0.03, 0.10]$ \\
+\bottomrule
+\end{tabular}
+\caption{Warmth prompt against no prompt, paired within system, 60 pairs each, bootstrap
+95\% CIs. Pooling these averages opposite-signed effects: the IDENTITY and fabrication
+differences cancel and read as null, which is why the body reports them separately.}
 \end{table}
 
 \section{Effect sizes with intervals}
