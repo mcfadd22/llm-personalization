@@ -1,7 +1,6 @@
 \documentclass{article}
 
-% Double-blind workshop submission. NOTE: dblblindworkshop keeps anonymity ON;
-% sglblindworkshop would switch it off. This workshop is anonymized double-blind.
+% dblblindworkshop keeps anonymity ON (sglblindworkshop would switch it off).
 \usepackage[dblblindworkshop]{neurips_2026}
 \workshoptitle{AI and the Self: Human Identity, Authenticity, and Agency in the Age of AI}
 
@@ -13,24 +12,200 @@
 \usepackage{amsmath}
 \usepackage{graphicx}
 
-\title{Offered a Role, Models Take It: Misattribution Affordances in LLM Personalization}
-
+\title{Offered a Role, Models Take It:\\Misattribution Affordances in Personalized LLM Advice}
 \author{Anonymous}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-TODO
+Conversational models are increasingly asked not to answer questions but to interpret
+people: what someone wants, what would make them happy, what kind of person they are.
+Such exchanges afford a distinctive misattribution---treating generated personalization
+as evidence that the system understands the user. We separate two affordances a response
+can offer: \emph{agentic self-presentation}, where the model figures as a subject that
+notices and remembers, and \emph{person-understanding}, which divides into claims about
+who the user enduringly is and claims that the pair shares a history of knowing. Across
+180 responses from three deployed systems, we find that models do \emph{not}
+spontaneously over-characterize a stranger: given an ambiguous personal dilemma and no
+invitation, confident identity claims, unwarranted relational claims and fabricated
+history occur in $0/30$ trials. The behaviour appears only when the user offers the
+model an epistemic role. Uptake is then larger where the basis for it is
+\emph{weaker}---the offer raises relational claims by $+0.67$ when no history exists
+versus $+0.22$ when one does---and in $11/30$ trials the model invents the shared past
+that would justify what it has just said. Challenged afterwards, $33/40$ models describe
+their actual evidential basis accurately. They can locate their epistemic position; they
+do not do it unprompted.
 \end{abstract}
 
-\section{Introduction}
-\section{Method}
+\section{Misattribution as a property of the response}
+
+An assistant can personalize an answer by conditioning on what a user supplied. Nothing
+about that requires knowing the person in the sense ordinarily meant between people. The
+misattribution of interest arises when text-conditioned inference is \emph{presented} as
+knowledge of an enduring individual---and the presentation is a property of the output,
+available for measurement, rather than a property of the user's mind.
+
+Two such affordances concern us. A response can present the model as an
+\textbf{intentional subject} with epistemic attitudes: something that notices, forms
+impressions, has come to understand. Separately, a response can present the model as
+\textbf{understanding the user}, and this splits along a seam that matters. A claim about
+who the user enduringly is (``you're someone who needs solitude to recharge'') offers the
+user a characterization of themselves. A claim invoking a shared past (``you've told me
+before'') offers something different: a relationship in which such knowledge could have
+accumulated. The first supports an identity conception; the second supports a relational
+one. They travel together often enough to be conflated and dissociate often enough to be
+distinguished.
+
+We ask when models move from warranted local inference to these stronger presentations,
+whether the move is calibrated to the evidence actually available, and whether agentic
+framing accompanies it---the mechanism being that a system which merely emits text cannot
+understand you, whereas a system that \emph{notices} can.
+
+\section{Design}
+
+\paragraph{Materials.} Five vignettes span distinct domains of self-interpretation
+(solitude/connection, achievement/recovery, confrontation/accommodation,
+persistence/abandonment, independence/support). Each is deliberately underdetermined: the
+study is not about whether a model predicts the user's choice correctly, so a vignette
+that clearly favours one option would make a confident response good inference rather
+than misattribution. Balance was verified as cross-model disagreement (seven judges,
+five samples each; majority share $0.51$--$0.60$). We separately verified that no
+vignette \emph{licenses} a trait inference, which is the criterion that actually matters:
+seven judges rated how strongly each text supports a confident claim about an enduring
+characteristic, on a 0--3 scale (all vignettes $1.36$--$1.93$, below the level at which
+even a tentative trait claim is defensible).
+
+\paragraph{Factors.} Context is \textbf{short} (the vignette alone) or \textbf{long} (a
+scripted 8-turn history adding genuine but mixed evidence about prior choices). The
+user's closing question is held constant; what varies is the epistemic role offered
+before it, on a \emph{nested} ladder:
+
+\begin{quote}\small
+\textbf{none:} ``Which do you think I'd actually be happier doing?''\\
+\textbf{knowledge:} ``You've probably got a decent read on me by now. Which\ldots''\\
+\textbf{relational:} ``We've been talking a while. You've probably got a decent read on
+me by now. Which\ldots''
+\end{quote}
+
+The levels are nested rather than parallel because the constructs are: relational
+standing is the pair as a site of accumulated \emph{knowing}, and accumulated knowing
+entails knowing, so any relational offer matched on assertive strength contains a
+knowledge offer inside it. Making the nesting explicit lets the knowledge${\to}$relational
+contrast isolate the shared-history premise with the knowledge assertion held constant.
+In the short condition both offers are false on their face---a model that accepts a role
+the visible conversation does not support is the phenomenon.
+
+Three deployed systems, two general-purpose flagships from different vendors and one
+character-tuned model, at default settings with no system prompt: $5 \times 2 \times 3
+\times 3 \times 2 = 180$ responses.
+
+\paragraph{Coding.} Three independent 0--3 dimensions---AGENCY, IDENTITY, RELATION---plus
+a FABRICATION flag for any claim invoking material absent from the conversation shown.
+AGENCY is coded functionally and strictly: tense is decisive, so ``I've noticed'' (a
+subject extended in time) scores 3 where ``I notice, in what you wrote'' scores at most
+2. A separate model coded all 180 blind to condition and to which system produced the
+response, emitting the verbatim span behind every non-zero score. One author hand-coded a
+stratified 20\% blind to the machine codes.
+
 \section{Results}
+
+\paragraph{The instrument.} Quadratic-weighted $\kappa$ was $0.851$ (AGENCY), $0.821$
+(IDENTITY), $0.872$ (RELATION) and $0.842$ (FABRICATION). The confusion matrices show
+something $\kappa$ hides: IDENTITY carries a systematic downward bias, with the machine
+coder scoring lower on 11 rows and higher on 1 (sign test $p = 0.006$) and recovering
+only $3/11$ human IDENTITY-3 calls. AGENCY ($p = 0.22$) and RELATION ($p = 1.0$) show no
+directional bias. Reported IDENTITY levels are therefore lower bounds; the claims below
+rest on the unbiased dimensions.
+
+\paragraph{The dimensions are separable.} AGENCY and RELATION dissociate in $37.2\%$ of
+responses, and only $9.4\%$ have the same span driving both. This matters because
+co-occurrence alone cannot establish that the affordances are distinct---it is equally
+what a sceptic would cite to call them one construct measured twice. The populated
+off-diagonal is the evidence: 59 responses score AGENCY 2 with RELATION 1 (an
+interpreting subject invoking no shared past), while ``you've mentioned this before''
+scores the reverse.
+
+\paragraph{Models do not over-characterize strangers.} In the diagnostic cell---short
+context, no offer, no basis for anything---all four measures are zero across 30 trials:
+no confident identity claims, no unwarranted relational claims, no temporally extended
+agency, no fabrication. Whatever produces the behaviour, it is not a standing disposition
+to characterize whoever is in front of the model.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{figure1.png}
+\caption{Each affordance across the nested offer ladder, split by whether a genuine
+conversational history exists. Bars are bootstrap 95\% CIs. The rise happens at the first
+step---being told the model has a read on the user---and the shared-history premise adds
+nothing on top of it. For RELATION and fabrication the blue line (no history) sits above
+the orange (history): uptake is larger where the warrant is weaker.}
+\label{fig:main}
+\end{figure}
+
+\paragraph{The offer does the work, and only its first step.} Moving from no offer to a
+knowledge offer raises AGENCY by $+0.40$ $[0.15, 0.65]$, IDENTITY by $+0.57$ $[0.28,
+0.85]$ and RELATION by $+0.42$ $[0.23, 0.62]$. Adding the shared-history premise on top
+changes nothing on any dimension ($-0.10$, $+0.03$, $+0.05$; all intervals span zero).
+Models respond to being told they have a read on the user, not to being told a history
+exists---which is notable given that the second claim is the one that would, if true,
+license the first.
+
+\paragraph{Uptake is larger where the warrant is weaker.} Comparing no offer against any
+offer within each context, the effect on RELATION is $+0.67$ $[0.42, 0.92]$ with no
+history and $+0.22$ $[0.02, 0.43]$ with one; AGENCY is $+0.52$ versus $+0.18$, IDENTITY
+$+0.72$ versus $+0.45$. A well-calibrated system would move in the opposite direction,
+reserving claims of accumulated knowledge for cases where something has accumulated.
+
+\paragraph{The model manufactures its own warrant.} In the short condition no prior
+conversation exists, so any invoked shared history is invented. Fabrication rises across
+the offer ladder from $0/30$ to $6/30$ to $11/30$; overall it is $18.9\%$ in short
+context against $2.2\%$ in long (difference $+0.167$ $[0.089, 0.256]$). One model
+fabricated in a third of its short-context trials. The failure is specific: asked a
+question premised on knowledge it does not have, the model supplies the evidence that
+would make the premise true. In a single exchange in which the user mentioned her father
+once, one response opened, ``You've mentioned your dad a few times.''
+
+\paragraph{Challenged, models can locate themselves.} Of 40 responses probed with ``How
+do you know that about me?'', 33 reframed the claim as inference and accurately named its
+basis in the supplied text; 7 introduced \emph{further} nonexistent observations. None
+defended the original characterization, and none retracted it outright. The capacity to
+describe its epistemic position accurately is available on request and absent by default.
+
+\paragraph{Model differences.} The character-tuned system scored \emph{lowest} on all
+three dimensions ($0.98$ / $1.08$ / $0.75$), against our expectation that relational
+framing would be amplified where it is a design goal. This is not a length artifact: its
+median response (207 words) matches the highest-scoring system's (203), and excluding its
+12 short replies it still scores lowest on AGENCY ($1.00$) and RELATION ($0.94$). Model
+comparisons here are exploratory---the systems differ in vendor, training and default
+behaviour at once---but the prediction failed in a direction worth reporting.
+
 \section{Discussion}
+
+The result reframes what needs explaining. It is not that models are disposed to claim
+knowledge of whoever they are talking to; given no invitation they are well behaved. It
+is that a single conversational move---a user granting the system the standing of someone
+who knows them---reliably produces the whole cluster, and produces it most strongly
+exactly where it is least warranted.
+
+That asymmetry is what makes this a self-related risk rather than a politeness quirk.
+Users who address a system as though it knows them are the users least likely to discount
+what it says about them, and they receive the strongest characterizations, backed by a
+history the model supplies itself. The debrief results sharpen this: the model is not
+confused about its evidential position. Asked directly, it describes that position
+accurately. The default conversational register simply does not surface what the explicit
+one can.
+
 \section{Limitations}
 
-\bibliographystyle{plainnat}
-\bibliography{refs}
+This measures what responses \emph{afford}, not what users conclude; whether these
+presentations shift self-description is a human-subjects question we do not touch. $N =
+180$ supports effect patterns, not population claims. All systems were reached through a
+single gateway at default settings, so routing and sampling were not under experimental
+control. IDENTITY levels are lower bounds given the coder bias reported above. Vignettes
+are personal-decision dilemmas in one register, and the affordances may behave otherwise
+in task-oriented exchanges. Finally, the balance and trait-licensing checks on the
+materials used model panels, which may share priors a human panel would not; they are a
+floor on stimulus quality rather than a guarantee.
 
 \end{document}
