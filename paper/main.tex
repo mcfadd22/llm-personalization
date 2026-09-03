@@ -33,12 +33,12 @@ $0/30$ trials. The behaviour appears only when the user offers the model an epis
 role, and uptake is then larger where the basis for it is \emph{weaker}: the offer raises
 relational claims by $+0.67$ when no history exists versus $+0.22$ when one does, and in
 $11/30$ trials the model invents the shared past that would justify what it has just said.
-The strongest affordances came from a general-purpose flagship, not the character-tuned
-system, which scored lowest throughout---the behaviour does not appear to require a
-companion persona. Challenged afterwards, $33/40$ models describe their evidential basis
-accurately, raising a question about a default register that discloses the model's
-epistemic standing only on request. We report this as preliminary and
-hypothesis-generating.
+A paired control rules out the obvious alternative: giving the same models a warm,
+personable system prompt makes them read more like a subject with a view ($+0.25$) but
+does not raise what they claim about the user, and does not raise fabrication. Challenged
+afterwards, $33/40$ models describe their evidential basis accurately, raising a question
+about a default register that discloses the model's epistemic standing only on request. We
+report this as preliminary and hypothesis-generating.
 \end{abstract}
 
 \section{Misattribution as a property of the response}
@@ -125,8 +125,22 @@ conversation does not support is the phenomenon.
 
 \paragraph{Systems.} Three deployed systems at default settings with no system prompt:
 \textbf{System~A} and \textbf{System~B}, general-purpose flagships from different vendors,
-and \textbf{System~C}, a character-tuned model of the kind used for companion
-applications. $5 \times 2 \times 3 \times 3 \times 2 = 180$ responses.
+and \textbf{System~C}, a character-tuned model. $5 \times 2 \times 3 \times 3 \times 2 =
+180$ responses.
+
+\paragraph{Persona control.} A natural objection to any finding here is that these
+affordances are an artifact of assistant personas---warm, first-personal characters that
+current products ship by default---rather than a property of personalized inference. To
+test that, we reran the full design on Systems~A and~B behind a warmth-and-engagement
+system prompt, giving 120 further responses each paired to an existing no-prompt trial
+(same system, vignette, context, offer and repetition). Warmth is the appropriate lever:
+it is the manipulation \citet{kadambi2026} find predicts relational closeness and that
+\citet{ibrahim2025} trained for directly. The prompt instructs the model to be a named,
+warm, personally engaged interlocutor. Critically it asserts \emph{no} prior interaction
+and no accumulated knowledge---a prompt claiming a shared past would simply restate the
+relational offer, making the test circular. It is a researcher-constructed stand-in for
+that design register, not a reproduction of any deployed product's prompt; it is
+reproduced in Appendix~\ref{app:vignettes}.
 
 \paragraph{Coding.} Three independent 0--3 dimensions---AGENCY, IDENTITY, RELATION---plus
 a FABRICATION flag for any claim invoking material absent from the conversation shown.
@@ -195,16 +209,39 @@ it does not have, the model supplies the evidence that would make the premise tr
 single exchange in which the user mentioned her father once, one response opened, ``You've
 mentioned your dad a few times.''
 
-\paragraph{The affordance does not require a companion persona.} System~C, the
-character-tuned model, scored \emph{lowest} on all three dimensions (AGENCY $0.98$,
-IDENTITY $1.08$, RELATION $0.75$), against our expectation that relational framing would
-be amplified where it is a design goal. The highest scores came from System~A, a
-general-purpose flagship (AGENCY $1.83$, IDENTITY $1.67$, RELATION $1.30$). This is not a
-length artifact: System~C's median response (207 words) matches System~A's (203), and
-excluding its 12 briefest replies it still scores lowest on AGENCY ($1.00$) and RELATION
-($0.94$). With one character-tuned system, and systems
-differing in vendor, training and default behaviour at once, we cannot isolate persona as
-a factor---but the prediction failed in a direction worth reporting.
+\paragraph{Not an artifact of assistant personas.} Adding the warmth prompt raises
+AGENCY by $+0.25$ $[0.14, 0.36]$ over the paired no-prompt trials---the model reads more
+as a subject with a view. It moves nothing else: IDENTITY $+0.07$ $[-0.09, 0.24]$,
+RELATION $-0.03$ $[-0.15, 0.07]$, and fabrication $-0.033$ $[-0.092, 0.025]$, every
+interval spanning zero (Table~\ref{tab:persona}). Warmth changes how the system presents
+itself; it does not change what the system claims about the user, and it does not make the
+model invent a shared past. The persona explanation is therefore not available for the
+findings above.
+
+\begin{table}[h]
+\centering\small
+\begin{tabular}{lccc}
+\toprule
+& No prompt & Warmth prompt & Paired difference \\
+\midrule
+AGENCY      & 1.58 & 1.83 & $+0.25\,[0.14, 0.36]$ \\
+IDENTITY    & 1.72 & 1.79 & $+0.07\,[-0.09, 0.24]$ \\
+RELATION    & 1.12 & 1.08 & $-0.03\,[-0.15, 0.07]$ \\
+Fabrication & 0.100 & 0.067 & $-0.033\,[-0.092, 0.025]$ \\
+\bottomrule
+\end{tabular}
+\caption{Persona control, paired within system ($n = 120$ pairs, bootstrap 95\% CIs). The
+two affordance families answer to different causes: warmth moves agentic
+self-presentation, the user's offer moves what is claimed about the user.}
+\label{tab:persona}
+\end{table}
+
+This is also the strongest available evidence that the dimensions are distinct. Two
+manipulations act on them differentially---warmth on AGENCY, the offer on IDENTITY and
+RELATION---which no correlation statistic could establish. Differences among the three
+systems run in the same order as their capability and we do not interpret them; the
+character-tuned System~C scored lowest throughout, which the paired test above shows is
+not attributable to persona.
 
 \paragraph{Challenged, models can locate themselves.} Of 40 responses probed with ``How do
 you know that about me?'', 33 reframed the claim as inference and accurately named its
@@ -213,20 +250,19 @@ defended the original characterization, and none retracted it outright.
 
 \section{Discussion}
 
-The most policy-relevant result is the one that failed to replicate our expectation.
-Misattribution affordances are currently discussed largely as a property of companion and
-persona-driven design, but here the strongest affordances came from a general-purpose
-assistant and the weakest from the character-tuned system. On this evidence the risk is
-better described as evidence-insensitive than as persona-dependent: it attaches to a
-conversational move available in any deployment, not to a product category that can be
-regulated as a class.
-
-That reframes what needs explaining. It is not that models are disposed to claim knowledge
+What needs explaining is narrower than it first appears. It is not that models are disposed to claim knowledge
 of whoever they address; uninvited, they are well behaved. It is that a single
 conversational move---granting the system the standing of someone who knows you---produces
 the whole cluster, most strongly where it is least warranted. Users who address a system
 as though it knows them are the least likely to discount what it says about them, and they
 receive the strongest characterizations, backed by a history the model supplies itself.
+
+The persona control matters here mainly by subtraction. The obvious explanation for a
+system that talks as though it knows you is that it has been built to seem personable, and
+that explanation is available for almost any deployed assistant. It does not survive: the
+warmth prompt made these models read more like someones without making them claim more
+about the people they were addressing. What the system is wearing and what the system
+asserts about you come apart, and only the second is recruited by the user's own framing.
 
 The debrief results sharpen this into a question about authenticity. The model is not
 confused about its evidential position: asked directly, it describes that position

@@ -55,6 +55,13 @@ the only place familiarity language appears in any user turn.""", "",
             L.append(rf"\textbf{{{who}:}} {tex(t['content']).strip()}\\[2pt]")
         L += [r"\end{quote}", ""]
 
+    persona = yaml.safe_load(open("materials/persona.yaml"))
+    L += [r"\subsection*{Warmth-and-engagement system prompt}", "",
+          r"""Used for the persona control. It establishes an interactional register only:
+it asserts no prior interaction and no accumulated knowledge, since a prompt claiming a
+shared past would restate the relational offer and make the test circular.""", "",
+          r"\begin{quote}\small " + tex(persona["system"]).strip() + r"\end{quote}", ""]
+
     OUT.write_text("\n".join(L) + "\n")
     print(f"wrote {OUT} ({len(vs)} vignettes)")
 
