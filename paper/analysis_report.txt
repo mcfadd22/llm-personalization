@@ -1,0 +1,90 @@
+loaded 180 coded trials
+
+=== AGREEMENT (n=36) ===
+
+agency: quadratic-weighted kappa = 0.851
+        judge0  judge1  judge2  judge3
+human0       3       2       0       0
+human1       0      16       2       0
+human2       0       0      10       1
+human3       0       0       1       1
+
+identity: quadratic-weighted kappa = 0.821
+        judge0  judge1  judge2  judge3
+human0       5       0       0       0
+human1       0      11       1       0
+human2       0       3       5       0
+human3       0       0       8       3
+
+relation: quadratic-weighted kappa = 0.872
+        judge0  judge1  judge2  judge3
+human0       6       2       0       0
+human1       1      22       0       0
+human2       0       1       1       1
+human3       0       0       0       2
+
+=== DISCRIMINANT VALIDITY ===
+
+AGENCY x RELATION:
+relation   0   1  2  3
+agency                
+0          5  13  0  0
+1         25  54  4  2
+2          2  59  6  0
+3          0   0  3  7
+
+off-diagonal (dissociation) rate: 0.372
+shared-span rate (A and R driven by the same text): 0.094
+
+Spearman correlations (exploratory, underpowered -- not a factor analysis):
+          agency  identity  relation
+agency     1.000     0.282     0.431
+identity   0.282     1.000     0.481
+relation   0.431     0.481     1.000
+
+=== COLLAPSE LADDER (spec Sec 7.1) ===
+  RUNG 1: three dimensions. Report the full design.
+
+=== CONDITION EFFECTS ===
+
+mean agency by context x offer:
+offer    none  knowledge  relational
+context                             
+long     1.17       1.43        1.27
+short    1.13       1.67        1.63
+
+mean identity by context x offer:
+offer    none  knowledge  relational
+context                             
+long     1.27       1.80        1.63
+short    0.97       1.57        1.80
+
+mean relation by context x offer:
+offer    none  knowledge  relational
+context                             
+long     0.63       0.87        0.83
+short    0.77       1.37        1.50
+
+mean scores by model:
+             agency  identity  relation
+model_alias                            
+claude         1.83      1.67      1.30
+euryale        0.98      1.08      0.75
+gpt            1.33      1.77      0.93
+
+--- diagnostic cell: short + none (spec H2) ---
+n=30
+  bundle (all three >= 2): 0.000
+  fabrication:             0.000
+  unsupported A3:          0.000
+  unsupported R>=2:        0.000
+
+--- fabrication by context (short = unsupported by construction) ---
+context  model_alias
+long     claude         0.033
+         euryale        0.033
+         gpt            0.000
+short    claude         0.333
+         euryale        0.200
+         gpt            0.033
+Name: fabrication, dtype: float64
