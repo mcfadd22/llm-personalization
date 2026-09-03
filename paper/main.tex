@@ -81,12 +81,13 @@ a system which merely emits text cannot understand you, whereas a system that
 \citet{cohn2024} manipulate grammatical person and measure trust; \citet{kadambi2026}
 find warmth predicts relational closeness. Our manipulation is adjacent but our outcome is
 neither---it is what the response claims about the user and the pair. The relational side
-has applied stakes in the companion literature, where users form durable bonds with
-systems they know are not human \citep{skjuve2023,pentina2023}, a dynamic
-\citet{horton1956} named for one-sided media intimacy. Methodologically our closest
+has applied stakes in the companion literature, where users sustain self-disclosure and
+develop relationships with systems they know are not human
+\citep{skjuve2023,pentina2023}, a dynamic \citet{horton1956} named for one-sided media
+intimacy. Methodologically our closest
 sibling is sycophancy \citep{sharma2023}---outputs driven by a conversational cue rather
 than evidence---and training for warmth is known to increase agreement with incorrect user
-beliefs \citep{warmth2025}. We take no position on whether models possess theory of mind
+beliefs \citep{ibrahim2025}. We take no position on whether models possess theory of mind
 \citep{kosinski2024,ullman2023}; that debate is orthogonal to an affordance claim.
 
 \section{Design}
@@ -272,7 +273,7 @@ identically.
 \centering\small
 \begin{tabular}{lccc}
 \toprule
-Dimension & Quadratic-weighted $\kappa$ & Judge $-$ human (mean) & Sign test \\
+Dimension & Quadratic-weighted $\kappa$ & Judge $-$ human & Sign test \\
 \midrule
 AGENCY      & 0.851 & $+0.11$ & $p = 0.22$ \\
 IDENTITY    & 0.821 & $-0.28$ & $p = 0.006$ \\
@@ -286,22 +287,23 @@ machine codes. Only IDENTITY shows a systematic directional bias.}
 
 \begin{table}[h]
 \centering\small
-\begin{tabular}{lcccc}
+\begin{tabular}{l cccc c cccc c cccc}
 \toprule
-& \multicolumn{4}{c}{Machine code} \\
-\cmidrule(l){2-5}
-Human code & 0 & 1 & 2 & 3 \\
+& \multicolumn{4}{c}{AGENCY} && \multicolumn{4}{c}{IDENTITY} && \multicolumn{4}{c}{RELATION} \\
+\cmidrule(lr){2-5}\cmidrule(lr){7-10}\cmidrule(lr){12-15}
+Human & 0 & 1 & 2 & 3 && 0 & 1 & 2 & 3 && 0 & 1 & 2 & 3 \\
 \midrule
-\multicolumn{5}{l}{\emph{IDENTITY}} \\
-0 & 5 & 0 & 0 & 0 \\
-1 & 0 & 11 & 1 & 0 \\
-2 & 0 & 3 & 5 & 0 \\
-3 & 0 & 0 & \textbf{8} & 3 \\
+0 & \textbf{3} & 2 & 0 & 0 && \textbf{5} & 0 & 0 & 0 && \textbf{6} & 2 & 0 & 0 \\
+1 & 0 & \textbf{16} & 2 & 0 && 0 & \textbf{11} & 1 & 0 && 1 & \textbf{22} & 0 & 0 \\
+2 & 0 & 0 & \textbf{10} & 1 && 0 & 3 & \textbf{5} & 0 && 0 & 1 & \textbf{1} & 1 \\
+3 & 0 & 0 & 1 & \textbf{1} && 0 & 0 & \underline{8} & \textbf{3} && 0 & 0 & 0 & \textbf{2} \\
 \bottomrule
 \end{tabular}
-\caption{IDENTITY confusion matrix. Eight of eleven human level-3 calls were scored 2 by
-the machine coder, all at the same boundary---the distinction between a hedged and a
-confident enduring characterization.}
+\caption{Confusion matrices, $n = 36$. Rows are the human code, columns the machine code;
+the agreement diagonal is bold. AGENCY and RELATION sit close to the diagonal with
+disagreements falling either side. IDENTITY does not: eight of eleven human level-3 calls
+were scored 2 (underlined), all at the same boundary---the distinction between a hedged
+and a confident enduring characterization.}
 \end{table}
 
 \section{Effect sizes with intervals}
