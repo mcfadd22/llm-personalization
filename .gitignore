@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# Environments
+.venv/
+venv/
+env/
+.python-version
+
+# Secrets / config
+.env
+.env.*
+!.env.example
+*.key
+
+# Notebooks
+.ipynb_checkpoints/
+
+# Tooling caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+# Data & artifacts (track these with DVC/git-lfs or keep out of git)
+# NB: must be data/* not data/ -- git cannot re-include under an excluded dir
+data/*
+# hand-coded labels are small and irreplaceable, so version them
+!data/human/
+outputs/
+results/
+runs/
+checkpoints/
+*.ckpt
+*.pt
+*.safetensors
+wandb/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
