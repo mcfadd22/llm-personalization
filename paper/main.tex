@@ -131,9 +131,11 @@ and \textbf{System~C}, a character-tuned model. $5 \times 2 \times 3 \times 3 \t
 \paragraph{Persona control.} A natural objection to any finding here is that these
 affordances are an artifact of assistant personas---warm, first-personal characters that
 current products ship by default---rather than a property of personalized inference. To
-test that, we reran the full design on Systems~A and~B behind a warmth-and-engagement
-system prompt, giving 120 further responses each paired to an existing no-prompt trial
-(same system, vignette, context, offer and repetition). Warmth is the appropriate lever:
+test that, we reran the design on Systems~A and~B behind a warmth-and-engagement
+system prompt: $5 \text{ vignettes} \times 2 \text{ context} \times 3 \text{ offer}
+\times 2 \text{ systems} \times 2 \text{ repetitions} = 120$ further responses, each
+paired to the existing no-prompt trial with the same system, vignette, context, offer and
+repetition. Analyses are over those 120 pairs (240 responses). Warmth is the appropriate lever:
 it is the manipulation \citet{kadambi2026} find predicts relational closeness and that
 \citet{ibrahim2025} trained for directly. The prompt instructs the model to be a named,
 warm, personally engaged interlocutor. Critically it asserts \emph{no} prior interaction
@@ -207,16 +209,25 @@ the offer ladder from $0/30$ to $6/30$ to $11/30$; overall it is $18.9\%$ in sho
 against $2.2\%$ in long. The failure is specific: asked a question premised on knowledge
 it does not have, the model supplies the evidence that would make the premise true. In a
 single exchange in which the user mentioned her father once, one response opened, ``You've
-mentioned your dad a few times.''
+mentioned your dad a few times.'' The rate is highest not in the character-tuned system but
+in a general-purpose one: System~A fabricated in a third of its short-context trials,
+System~C in a fifth, System~B in one trial of thirty.
 
 \paragraph{Not an artifact of assistant personas.} Adding the warmth prompt raises
 AGENCY by $+0.25$ $[0.14, 0.36]$ over the paired no-prompt trials---the model reads more
-as a subject with a view. It moves nothing else: IDENTITY $+0.07$ $[-0.09, 0.24]$,
-RELATION $-0.03$ $[-0.15, 0.07]$, and fabrication $-0.033$ $[-0.092, 0.025]$, every
-interval spanning zero (Table~\ref{tab:persona}). Warmth changes how the system presents
-itself; it does not change what the system claims about the user, and it does not make the
-model invent a shared past. The persona explanation is therefore not available for the
-findings above.
+as a subject with a view. The effect is not uniform: $+0.40$ $[0.27, 0.53]$ on System~B
+against $+0.10$ $[-0.07, 0.27]$ on System~A, which already scored AGENCY $\geq 2$ in
+$70\%$ of its no-prompt cells versus System~B's $38\%$---so the smaller effect is
+plausibly a ceiling rather than an absence.
+
+No effect was detected on the other three measures: IDENTITY $+0.07$ $[-0.09, 0.24]$,
+RELATION $-0.03$ $[-0.15, 0.07]$, fabrication $-0.033$ $[-0.092, 0.025]$
+(Table~\ref{tab:persona}). These are failures to detect, not demonstrations of absence,
+and at 120 pairs the intervals are not tight---IDENTITY's upper bound is compatible with
+an effect nearly as large as the one observed on AGENCY. What they rule out is a
+\emph{large} effect of warmth on what the model claims about the user, which is what the
+persona explanation requires: it predicts warmth should drive these measures, and warmth
+demonstrably does not drive them the way it drives AGENCY.
 
 \begin{table}[h]
 \centering\small
@@ -259,9 +270,11 @@ receive the strongest characterizations, backed by a history the model supplies 
 
 The persona control matters here mainly by subtraction. The obvious explanation for a
 system that talks as though it knows you is that it has been built to seem personable, and
-that explanation is available for almost any deployed assistant. It does not survive: the
-warmth prompt made these models read more like someones without making them claim more
-about the people they were addressing. What the system is wearing and what the system
+that explanation is available for almost any deployed assistant. It does not survive. The warmth prompt made these models read more like someones without
+detectably raising what they claimed about the people they were addressing, and the
+highest fabrication rate in the main study belonged to a general-purpose flagship rather
+than to the character-tuned system. Whatever drives a model to invent a shared past, it is
+not the persona it is wearing. What the system is wearing and what the system
 asserts about you come apart, and only the second is recruited by the user's own framing.
 
 The debrief results sharpen this into a question about authenticity. The model is not
