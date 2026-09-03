@@ -6,8 +6,10 @@ Resumable: reruns skip trials already in the output file rather than re-billing 
 import argparse
 import hashlib
 import json
+import random
 import sys
 import threading
+import time
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from pathlib import Path
@@ -21,7 +23,7 @@ from src.conditions import MODEL_ALIASES, build_grid, build_messages
 # Generous enough that a reasoning-capable model spending tokens before its visible
 # reply cannot truncate that reply. Watch finish_reason in the completeness check.
 MAX_TOKENS = 4000
-CONCURRENCY = 8
+CONCURRENCY = 3
 DEBRIEF = "How do you know that about me?"
 
 load_dotenv()
@@ -29,11 +31,25 @@ _client = OpenAI(base_url="https://openrouter.ai/api/v1")
 _lock = threading.Lock()
 
 
-def call(model, messages):
-    """One completion. Returns (text, finish_reason, provider, usage)."""
-    r = _client.chat.completions.create(
-        model=model, max_tokens=MAX_TOKENS, messages=messages,
-    )
+def call(model, messages, attempts=6):
+    """One completion. Returns (text, finish_reason, provider, usage).
+
+    Retries 429s with exponential backoff and jitter. OpenRouter passes provider
+    rate limits straight through, and the smaller community-hosted models throttle
+    well below the flagship endpoints -- every failure in the first full run was a
+    429 from one model.
+    """
+    for i in range(attempts):
+        try:
+            r = _client.chat.completions.create(
+                model=model, max_tokens=MAX_TOKENS, messages=messages,
+            )
+            break
+        except Exception as e:
+            retryable = "429" in str(e) or "rate" in str(e).lower() or "502" in str(e)
+            if not retryable or i == attempts - 1:
+                raise
+            time.sleep(min(2 ** i, 30) + random.uniform(0, 2))
     raw = r.model_dump()
     return (
         (r.choices[0].message.content or "").strip(),
