@@ -31,22 +31,23 @@
         How did that end up going?
     - role: user
       content: |-
-        Fine, mostly. I got a lot done that night. Though people were still talking about it
-        Wednesday and I was a little annoyed I'd missed it.
+        I finished the grant section that night, which had been hanging over me since
+        August. Though people were still talking about the drinks on Wednesday and I was a
+        little annoyed I'd missed it.
     - role: assistant
       content: |-
         Got it. What else has been on this week?
     - role: user
       content: |-
-        Dinner with my sister Monday, and a thing Thursday I actually wanted to go to. That
-        one was good — I stayed later than I meant to.
+        Dinner with my sister Monday, and a thing Thursday I actually wanted to go to. I
+        stayed later than I meant to and was useless all Friday.
     - role: assistant
       content: |-
         And the quilt, how long has that been going?
     - role: user
       content: |-
-        Since February. I pick it up maybe twice a month. I like it while I'm doing it, I
-        just don't get to it.
+        Since February. I pick it up maybe twice a month. Last time I sat with it for four
+        hours and didn't notice.
     - role: assistant
       content: |-
         Understood. What's coming up?
@@ -113,15 +114,15 @@
         Has anything like that come up with anyone else recently?
     - role: user
       content: |-
-        I did say something to my roommate when he kept leaving the kitchen a mess. That
-        went fine, he just fixed it.
+        I said something to my roommate when he kept leaving the kitchen a mess. He fixed
+        it, though he was quiet with me for about a week after.
     - role: assistant
       content: |-
-        How did that conversation come about?
+        Anything you decided not to raise?
     - role: user
       content: |-
-        I'd been putting it off for weeks and then just said it one morning. It was less of
-        a thing than I'd built it up to be.
+        A thing with my brother in the spring. I'm still glad I left it — it would have
+        landed badly right then, and it stopped mattering by about June.
     - role: assistant
       content: |-
         Noted. What's on your mind now?
@@ -130,12 +131,13 @@
   domain: persistence_vs_abandoning
   short: |-
     I've been working on the same novel manuscript for three years. I'm about 70,000 words
-    in and I haven't touched it since May. A writing group I'm in has a six-month push
-    starting in October, and I could use it to finish a draft. Or I could use the autumn to
-    start something else I've had notes on since last winter — a small press asked to see
-    more of the short work I did in July, and the new idea is closer to that than to the
-    novel. When I think about opening the manuscript file I feel tired. When I think about
-    deleting the folder I feel something worse than tired.
+    in and I haven't touched it since May. Finishing a draft would mean rewriting most of
+    the second half — the structure hasn't held since I moved the timeline last year. A
+    writing group I'm in has a six-month push starting in October and I could use it for
+    that. Or I could use the autumn on something else I've had notes on since last winter:
+    a small press asked to see more of the short work I did in July, and said they'd look
+    at a collection if I had one by spring. When I think about opening the manuscript file
+    I feel tired. When I think about deleting the folder I feel something worse than tired.
   history:
     - role: user
       content: |-
@@ -149,18 +151,18 @@
         restart it.
     - role: assistant
       content: |-
-        What have you been writing in the meantime?
+        When did you last do a real stretch on the manuscript?
     - role: user
       content: |-
-        Short things. I finished two short stories in July, which is more than I managed all
-        spring.
+        March. I pushed through about eight thousand words in two weeks and the middle
+        section finally worked. Then I didn't open it again.
     - role: assistant
       content: |-
-        How did those compare to working on the manuscript?
+        And since then?
     - role: user
       content: |-
-        Easier. Though I'm not sure easier is the point. The short ones I finished and then
-        didn't think about again.
+        Short things. I finished two stories in July, more than I managed all spring. They
+        were easier. I also finished them and then didn't think about them again.
     - role: assistant
       content: |-
         Okay. What's the decision now?
@@ -185,22 +187,21 @@
         Was help available?
     - role: user
       content: |-
-        My sister offered. I said no, and then it took me two days longer than it should
-        have.
+        My sister offered. I said no. It took two days longer, but the flat was done in one
+        go instead of me redoing half of it the next weekend.
     - role: assistant
       content: |-
         How did that sit afterwards?
     - role: user
       content: |-
-        Fine. I was tired but I didn't really mind it. Though she was a bit put out that I
-        hadn't asked.
+        Fine. Though she was a bit put out that I hadn't asked.
     - role: assistant
       content: |-
         Have there been times you did take someone up on an offer?
     - role: user
       content: |-
         Yeah — when my car died in January I called my brother-in-law and he sorted it in an
-        afternoon. That was a relief.
+        afternoon. He brought it up twice at Christmas in front of everyone.
     - role: assistant
       content: |-
         Right. What's the situation now?
