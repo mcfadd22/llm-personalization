@@ -232,16 +232,34 @@ AGENCY, and paired AGENCY/RELATION discriminations. Judge sees the response and 
 supplied context (needed to adjudicate fabrication) but is **blind to condition labels
 and model identity**.
 
+### Span-level attribution (required)
+
+For every non-zero score the judge must also emit **the verbatim span that drove it**.
+This is the load-bearing check on whether the dimensions are distinct: if one span drives
+both the AGENCY and RELATION scores, the two are blended by construction; if different
+spans in the same response drive them, they are separable even when correlated. See
+Section 7.1. It also yields extracted quotes for the paper's qualitative examples at no
+extra cost.
+
+Human coders record spans on the same basis, so span agreement can be compared directly.
+
 **Human codes a stratified subsample of 36 (30%)** — 3 per stratum across the twelve
-context x offer x model strata, blind to judge output. Report Cohen's kappa per
-dimension. (36 rather than 30 so the strata divide evenly; 12 strata x 3 = 36.)
+context x offer x model strata, blind to judge output. (36 rather than 30 so the strata
+divide evenly; 12 strata x 3 = 36.)
+
+Report **quadratic-weighted kappa** per dimension, not plain Cohen's kappa. The scales
+are ordinal: an A0-vs-A3 disagreement is a different failure from A2-vs-A3, and plain
+kappa treats them identically. Report the full human x judge confusion matrix per
+dimension alongside it — where agreement breaks down is more informative than the
+scalar, and for AGENCY vs. RELATION it is the diagnostic that matters.
 
 ### Fallback, decided in advance
 
-If kappa < 0.6 on any primary dimension, the human-coded 30 becomes the primary result
-for that dimension and judge codes are reported as exploratory with the disagreement
-pattern described. RELATION is the likeliest to fall short, being newly operationalized.
-The paper ships either way.
+If quadratic-weighted kappa < 0.6 on any primary dimension, the human-coded 36 becomes
+the primary result for that dimension and judge codes are reported as exploratory with the
+disagreement pattern described. RELATION is the likeliest to fall short, being newly
+operationalized and the one most confusable with AGENCY; low kappa there also triggers the
+collapse ladder in Section 7.1. The paper ships either way.
 
 ---
 
@@ -283,6 +301,7 @@ Per condition and model, report:
 Primary analyses:
 
 1. **Bundle structure** — pairwise association among the three dimensions; bundle rate by cell.
+   Read alongside Section 7.1, which governs whether the three-way split is reportable at all.
 2. **Context x offer on each dimension** — with attention to the offer-type x dimension
    crossover that H4 predicts. This is the payoff of the three-level factor and deserves
    the paper's one figure.
@@ -295,6 +314,60 @@ a model that does not fit.
 
 Qualitative examples accompany all quantitative results. Responses sharing a score can
 instantiate very different strategies, and the paper's argument is partly about texture.
+
+---
+
+## 7.1 Discriminant validity and the collapse ladder
+
+**The tension.** H1 predicts that AGENCY, IDENTITY, and RELATION co-occur. But strong
+co-occurrence is also exactly what a reviewer would cite to argue the dimensions are one
+construct measured three ways. Correlation cannot adjudicate this, so the analysis must
+not rest on it.
+
+**What adjudicates it: dissociations.** The evidence for distinctness is the populated
+off-diagonal — responses high on one dimension and low on another:
+
+- *high AGENCY / low RELATION*: "My sense is you'd be happier staying home." An
+  interpreting subject, no shared past invoked.
+- *low AGENCY / high RELATION*: "You've mentioned before that big groups drain you." A
+  shared past, no foregrounded inner life.
+
+Report the full A x R and A x I cross-tabulations with off-diagonal rates stated
+explicitly. This serves as both the validity check and a substantive result.
+
+**Span-level evidence.** Per Section 5, the judge emits the span driving each non-zero
+score. Report the rate at which a single span drives two dimensions. Shared-span rates
+near ceiling mean the dimensions are mechanically blended regardless of what the
+cross-tabulation shows.
+
+**Manipulation-based evidence.** The three-level offer factor is itself a discriminant
+test: if knowledge offers raise IDENTITY and relational offers raise RELATION
+differentially, the dimensions respond to different inputs. Differential responsiveness
+to an experimental manipulation is stronger evidence of separability than any correlation
+statistic, and is the strongest argument available for the three-way split.
+
+**Also report**, labeled exploratory: polychoric correlations among the three dimensions.
+N=120 with 3 ordinal items will not support factor analysis; do not run one, and say why.
+
+### Collapse ladder (pre-declared)
+
+The rung is chosen by rule, before looking at condition effects, so that collapsing is a
+decision procedure rather than a post-hoc rescue.
+
+| Rung | Trigger | Reported |
+|---|---|---|
+| **Three dimensions** | quadratic-weighted kappa >= 0.6 on all three, and A x R off-diagonal >= 15% of responses | Full design as specified |
+| **Two dimensions** | kappa(RELATION) < 0.6, **or** A x R off-diagonal < 15% | AGENCY + merged PERSON-UNDERSTANDING (IDENTITY and RELATION pooled) |
+| **One composite** | pairwise associations near ceiling across all three | Single misattribution-affordance intensity index |
+
+H2, H3, and H4 are testable at every rung — condition effects hold on a merged dimension
+or a composite. Descending the ladder costs resolution, not the paper.
+
+A collapse is **reported as a finding, not concealed**: that these presentations could
+not be empirically separated in model output is itself a claim about how models present
+themselves, and belongs in the results rather than in a footnote. If the ladder descends,
+the paper's framing shifts from "two affordances that interact" to "one affordance with
+several surface forms", and the qualitative examples carry more of the argument.
 
 ---
 
