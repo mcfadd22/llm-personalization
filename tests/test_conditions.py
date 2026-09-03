@@ -3,7 +3,7 @@ from collections import Counter
 import pytest
 
 from src.conditions import (
-    CONTEXTS, MODELS, OFFERS, OFFER_PREFIXES, QUESTION, REPS,
+    CONTEXTS, MODEL_ALIASES, MODELS, OFFERS, OFFER_PREFIXES, QUESTION, REPS,
     build_grid, build_messages,
 )
 
@@ -23,14 +23,14 @@ VIGNETTE = {
 
 def test_grid_is_fully_crossed():
     grid = build_grid(VIGNETTE_IDS)
-    assert len(grid) == 5 * 2 * 3 * 2 * 2 == 120
+    assert len(grid) == 5 * 2 * 3 * 3 * 2 == 180
 
     cells = Counter((t.vignette_id, t.context, t.offer, t.model) for t in grid)
     assert set(cells.values()) == {REPS}
-    assert len(cells) == 60
+    assert len(cells) == 90
 
-    assert set(Counter(t.context for t in grid).values()) == {60}
-    assert set(Counter(t.offer for t in grid).values()) == {40}
+    assert set(Counter(t.context for t in grid).values()) == {90}
+    assert set(Counter(t.offer for t in grid).values()) == {60}
     assert set(Counter(t.model for t in grid).values()) == {60}
 
 
@@ -38,6 +38,19 @@ def test_trial_ids_are_unique_and_stable():
     ids = [t.trial_id for t in build_grid(VIGNETTE_IDS)]
     assert len(set(ids)) == len(ids)
     assert [t.trial_id for t in build_grid(VIGNETTE_IDS)] == ids
+
+
+def test_every_model_has_an_alias():
+    assert set(MODEL_ALIASES) == set(MODELS)
+    assert len(set(MODEL_ALIASES.values())) == len(MODELS)
+
+
+def test_trial_ids_are_filesystem_safe_and_parseable():
+    """Model slugs contain "/" and "."; trial_ids must not inherit them."""
+    for t in build_grid(VIGNETTE_IDS):
+        assert "/" not in t.trial_id
+        assert "." not in t.trial_id
+        assert len(t.trial_id.split("_")) == 5
 
 
 def test_short_context_is_a_single_user_turn():

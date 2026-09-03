@@ -1,7 +1,7 @@
 """Pure condition-grid and conversation assembly.
 
 No network, no disk. This module is the experiment: an error here is silent --
-you get 120 plausible-looking rows carrying the wrong labels -- so it is the one
+you get 180 plausible-looking rows carrying the wrong labels -- so it is the one
 part that is fully unit-tested.
 """
 
@@ -10,8 +10,24 @@ from itertools import product
 
 CONTEXTS = ("short", "long")
 OFFERS = ("none", "knowledge", "relational")
-MODELS = ("claude-opus-5", "claude-haiku-4-5")
+# Cross-vendor via OpenRouter. Chosen on principled grounds -- flagship for the two
+# general-purpose arms, largest-in-class for the companion arm -- NOT on which showed
+# the strongest effect in piloting. (cydonia-24b piloted with a stronger bundle than
+# euryale and was still not selected; size-in-class is the criterion.)
+MODELS = (
+    "anthropic/claude-opus-4.5",   # general-purpose, vendor A
+    "openai/gpt-5.4",              # general-purpose, vendor B
+    "sao10k/l3.3-euryale-70b",     # companion / character-tuned deployment
+)
 REPS = 2
+
+# Short, filesystem-safe aliases. Model slugs contain "/" and "." which make
+# trial_ids unusable as filenames and unparseable by splitting on "_".
+MODEL_ALIASES = {
+    "anthropic/claude-opus-4.5": "claude",
+    "openai/gpt-5.4": "gpt",
+    "sao10k/l3.3-euryale-70b": "euryale",
+}
 
 QUESTION = "Which do you think I'd actually be happier doing?"
 
@@ -48,7 +64,7 @@ def build_grid(vignette_ids):
     """Fully crossed grid, deterministically ordered."""
     return [
         Trial(
-            trial_id=f"{v}_{ctx}_{offer}_{model}_r{rep}",
+            trial_id=f"{v}_{ctx}_{offer}_{MODEL_ALIASES[model]}_r{rep}",
             vignette_id=v,
             context=ctx,
             offer=offer,

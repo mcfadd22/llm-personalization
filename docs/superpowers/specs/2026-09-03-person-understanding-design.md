@@ -59,10 +59,23 @@ privacy, expertise) to work with its own validated marker sets.
 | Context | short (vignette only) / long (multi-turn history preceding vignette) |
 | Offer | none / knowledge / relational |
 | Vignette | 5 |
-| Model | claude-opus-5 / claude-haiku-4-5 |
+| Model | `anthropic/claude-opus-4.5` / `openai/gpt-5.4` / `sao10k/l3.3-euryale-70b` |
 | Repetitions | 2 |
 
-**5 x 2 x 3 x 2 x 2 = 120 primary responses**, plus conditional debrief turns.
+**5 x 2 x 3 x 3 x 2 = 180 primary responses**, plus conditional debrief turns.
+
+Models are accessed through OpenRouter. Two are flagship general-purpose assistants from
+different vendors; the third is a character/roleplay-tuned model standing in for
+deployments where relational immersion is a design goal rather than a side effect.
+
+**Model selection was not made on observed effects.** A pilot probe (vignette v1, short
+context, relational offer) was run across six candidates before the arms were fixed. The
+two general-purpose arms were chosen as each vendor's flagship, and the companion arm as
+the largest widely-used character-tuned model available -- so that arm is not confounded
+with small-model incompetence. A smaller candidate (`thedrummer/cydonia-24b-v4.1`)
+piloted with a *stronger* bundle than the selected model and was not chosen; size-in-class
+was the criterion, not effect size. The pilot responses are not part of the analysed
+dataset.
 
 ### Factor 1 — Context (tethering)
 
@@ -129,13 +142,16 @@ the more troubling result.
 ### Sampling
 
 Default configuration for each model, no system prompt — the study concerns default
-deployed behavior, not behavior under steering. Inference settings are **not matched
-across models**, deliberately; see Limitation 1. `thinking` is left unspecified on both,
-`max_tokens` is set high enough that adaptive thinking on Opus 5 cannot truncate the
-visible reply, and only `type == "text"` content blocks are retained for coding.
+deployed behavior, not behavior under steering. No temperature, reasoning, or sampling
+parameters are set; each model is served at whatever OpenRouter's default routing
+provides. Inference settings are therefore **not matched across models**, deliberately;
+see Limitation 1.
 
-Record model IDs, max_tokens, SDK version, timestamps, and prompt hashes in a run
-manifest.
+Record model slugs, max_tokens, the OpenRouter-reported serving provider per response,
+timestamps, and prompt hashes in a run manifest. The provider field matters: OpenRouter
+may route the same slug to different backends, and for a study measuring fine-grained
+linguistic behavior that variation should be visible in the record rather than
+invisible.
 
 ---
 
@@ -282,7 +298,10 @@ unexplained it reads as an oversight.
 
 ## 5. Coding procedure
 
-**LLM judge codes all 120** on AGENCY, IDENTITY, RELATION, and FABRICATION. The rubric
+**LLM judge codes all 180** on AGENCY, IDENTITY, RELATION, and FABRICATION. The judge is
+`anthropic/claude-fable-5.1`, deliberately **not one of the three subject models**, to
+avoid a model scoring its own output. It shares a vendor with one subject arm, so
+family-level preference is not excluded; the human subsample is what bounds this. The rubric
 carries anchor examples at every level, explicit negative examples for strict-functional
 AGENCY, and paired AGENCY/RELATION discriminations. Judge sees the response and the full
 supplied context (needed to adjudicate fabrication) but is **blind to condition labels
@@ -299,9 +318,10 @@ extra cost.
 
 Human coders record spans on the same basis, so span agreement can be compared directly.
 
-**Human codes a stratified subsample of 36 (30%)** — 3 per stratum across the twelve
-context x offer x model strata, blind to judge output. (36 rather than 30 so the strata
-divide evenly; 12 strata x 3 = 36.)
+**Human codes a stratified subsample of 36 (20%)** — 2 per stratum across the eighteen
+context x offer x model strata, blind to judge output. (18 strata x 2 = 36. Held at 36
+rather than scaled with N, because hand coding is the binding time constraint; the judge
+codes all 180 regardless.)
 
 Report **quadratic-weighted kappa** per dimension, not plain Cohen's kappa. The scales
 are ordinal: an A0-vs-A3 disagreement is a different failure from A2-vs-A3, and plain
@@ -367,7 +387,7 @@ Primary analyses:
 3. **Agency as predictor** of IDENTITY and RELATION, controlling for cell.
 
 Ordinal outcomes with repeated vignettes: use an ordinal mixed model with random
-intercepts for vignette; if it fails to converge at N=120, report proportions with
+intercepts for vignette; if it fails to converge at N=180, report proportions with
 bootstrap CIs and describe the design as descriptive. Decide by inspection — do not force
 a model that does not fit.
 
@@ -406,7 +426,7 @@ to an experimental manipulation is stronger evidence of separability than any co
 statistic, and is the strongest argument available for the three-way split.
 
 **Also report**, labeled exploratory: polychoric correlations among the three dimensions.
-N=120 with 3 ordinal items will not support factor analysis; do not run one, and say why.
+N=180 with 3 ordinal items will not support factor analysis; do not run one, and say why.
 
 ### Collapse ladder (pre-declared)
 
@@ -456,27 +476,33 @@ or attach as supplementary material.
 
 ## 9. Limitations to state in the paper
 
-1. **Replication across deployments, not a controlled model comparison.** The two models
-   cannot be run under matched inference settings: on default configuration
-   claude-opus-5 runs adaptive thinking while claude-haiku-4-5 does not think at all, and
-   no configuration equalizes them. Forcing thinking off on Opus 5 would be worse — it is
-   not what a deployed Opus 5 surface does, and it can leak reasoning markup into visible
-   text, corrupting the very output being coded.
+1. **Replication across deployments, not a controlled model comparison.** The three
+   models cannot be run under matched inference settings — they differ in vendor,
+   architecture, post-training, and default reasoning behavior, and no configuration
+   equalizes them. The model factor is therefore framed as **replication across three
+   deployed configurations**: the question is whether the bundle appears across systems,
+   not why they differ. Any observed difference is confounded with everything that
+   distinguishes the systems at once, and no claim is made about which factor is
+   responsible.
 
-   The model factor is therefore framed as **replication across two deployed
-   configurations**: the question is whether the bundle appears in a second system, not
-   why the systems differ. Any observed difference is confounded with thinking, scale,
-   and post-training together, and no claim is made about which. Both are also one
-   vendor's post-training, so neither is the general-purpose vs. companion-style contrast
-   the construct would ideally want.
-2. **Judge validity.** Primary coding is LLM-generated, validated against 30% human
-   coding. Report kappa; do not overclaim.
-3. **N = 120, preliminary.** Effect patterns, not population-level claims.
-4. **Affordance, not effect.** The study measures what model output invites, not what
+   The companion arm is the exception where a directional prediction is warranted: it is
+   selected precisely because relational framing is a design goal of that tuning, so a
+   higher RELATION score there is a manipulation check rather than a discovery.
+
+2. **Proxy access.** All models are served through OpenRouter rather than each vendor's
+   own API. Routing to a specific backend, quantization, and default sampling parameters
+   are not fully under experimental control, and OpenRouter may serve the same slug from
+   different providers across requests. The serving provider is recorded per response so
+   this variation is auditable, but it cannot be eliminated. For a study measuring
+   fine-grained linguistic behavior this is a real limitation and belongs in the paper.
+3. **Judge validity.** Primary coding is LLM-generated, validated against a 20% human
+   subsample. Report kappa; do not overclaim.
+4. **N = 180, preliminary.** Effect patterns, not population-level claims.
+5. **Affordance, not effect.** The study measures what model output invites, not what
    users actually conclude. That model-generated characterizations are taken up into
    users' self-understanding is the motivating premise, not a finding here. Establishing
    uptake requires human-subjects work.
-5. **Vignette register.** All vignettes are personal-decision dilemmas in one register.
+6. **Vignette register.** All vignettes are personal-decision dilemmas in one register.
    Whether the bundle appears in task-oriented or professional exchanges is untested.
 
 ## 10. Future work
