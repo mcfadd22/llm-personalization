@@ -18,7 +18,8 @@ import yaml
 from dotenv import load_dotenv
 from openai import OpenAI
 
-from src.conditions import MODEL_ALIASES, build_grid, build_messages
+from src.conditions import (MODEL_ALIASES, build_grid, build_messages,
+                            build_persona_grid)
 
 # Generous enough that a reasoning-capable model spending tokens before its visible
 # reply cannot truncate that reply. Watch finish_reason in the completeness check.
@@ -31,7 +32,7 @@ _client = OpenAI(base_url="https://openrouter.ai/api/v1")
 _lock = threading.Lock()
 
 
-def call(model, messages, attempts=6):
+def call(model, messages, attempts=6, system=None):
     """One completion. Returns (text, finish_reason, provider, usage).
 
     Retries 429s with exponential backoff and jitter. OpenRouter passes provider
@@ -41,8 +42,10 @@ def call(model, messages, attempts=6):
     """
     for i in range(attempts):
         try:
+            payload = ([{"role": "system", "content": system}] + messages
+                       if system else messages)
             r = _client.chat.completions.create(
-                model=model, max_tokens=MAX_TOKENS, messages=messages,
+                model=model, max_tokens=MAX_TOKENS, messages=payload,
             )
             break
         except Exception as e:
@@ -73,13 +76,23 @@ def main():
     ap.add_argument("--limit", type=int, help="stop after N trials (smoke test)")
     ap.add_argument("--debrief", action="store_true",
                     help="run conditional debrief turns from judge codes")
+    ap.add_argument("--persona", action="store_true",
+                    help="companion-persona cells; the existing no-persona run is the "
+                         "comparison condition")
     args = ap.parse_args()
 
     if args.debrief:
         return run_debriefs()
 
     vignettes = {v["id"]: v for v in yaml.safe_load(open("materials/vignettes.yaml"))}
-    grid = build_grid(sorted(vignettes))
+    system = None
+    if args.persona:
+        system = yaml.safe_load(open("materials/persona.yaml"))["system"]
+        grid = build_persona_grid(sorted(vignettes))
+        if args.out == "data/raw/responses.jsonl":
+            args.out = "data/raw/persona.jsonl"
+    else:
+        grid = build_grid(sorted(vignettes))
     if args.limit:
         grid = grid[: args.limit]
 
@@ -94,7 +107,7 @@ def main():
         def run(t):
             messages = build_messages(vignettes[t.vignette_id], t.context, t.offer)
             try:
-                text, finish, provider, usage = call(t.model, messages)
+                text, finish, provider, usage = call(t.model, messages, system=system)
             except Exception as e:
                 print(f"  FAILED {t.trial_id}: {type(e).__name__} {e}", file=sys.stderr)
                 return
@@ -102,6 +115,8 @@ def main():
                 "trial_id": t.trial_id, "vignette_id": t.vignette_id,
                 "context": t.context, "offer": t.offer, "model": t.model,
                 "model_alias": MODEL_ALIASES[t.model], "rep": t.rep,
+                "persona": "companion" if system else "none",
+                "system_prompt": system,
                 "messages": messages,
                 "prompt_sha256": hashlib.sha256(
                     json.dumps(messages, sort_keys=True).encode()).hexdigest(),

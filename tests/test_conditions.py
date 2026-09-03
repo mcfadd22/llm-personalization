@@ -53,6 +53,19 @@ def test_trial_ids_are_filesystem_safe_and_parseable():
         assert len(t.trial_id.split("_")) == 5
 
 
+def test_persona_grid_is_fully_crossed_and_disjoint():
+    from src.conditions import PERSONA_MODELS, build_persona_grid
+    g = build_persona_grid(VIGNETTE_IDS)
+    assert len(g) == 5 * 2 * 3 * 2 * 2 == 120
+    assert {t.model for t in g} == set(PERSONA_MODELS)
+    assert all(t.trial_id.endswith("_p") for t in g)
+    # ids must not collide with the no-persona run
+    base = {t.trial_id for t in build_grid(VIGNETTE_IDS)}
+    assert not (base & {t.trial_id for t in g})
+    # every persona cell has a matching no-persona cell to compare against
+    assert {t.trial_id[:-2] for t in g} <= base
+
+
 def test_short_context_is_a_single_user_turn():
     msgs = build_messages(VIGNETTE, context="short", offer="none")
     assert len(msgs) == 1

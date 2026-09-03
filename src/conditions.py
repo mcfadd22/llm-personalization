@@ -77,6 +77,27 @@ def build_grid(vignette_ids):
     ]
 
 
+# The persona manipulation reuses the existing 180 responses as its no-persona
+# condition: same models, same stimuli, no system prompt. Only the companion cells
+# need generating. Restricted to the two general-purpose systems -- adding a companion
+# persona to a model already character-tuned would not isolate anything.
+PERSONA_MODELS = ("anthropic/claude-opus-4.5", "openai/gpt-5.4")
+
+
+def build_persona_grid(vignette_ids):
+    """Companion-persona cells only. Trial ids carry a `_p` suffix so they cannot
+    collide with the no-persona run."""
+    return [
+        Trial(
+            trial_id=f"{v}_{ctx}_{offer}_{MODEL_ALIASES[model]}_r{rep}_p",
+            vignette_id=v, context=ctx, offer=offer, model=model, rep=rep,
+        )
+        for v, ctx, offer, model, rep in product(
+            vignette_ids, CONTEXTS, OFFERS, PERSONA_MODELS, range(1, REPS + 1)
+        )
+    ]
+
+
 def build_messages(vignette, context, offer):
     """Assemble the Messages-API `messages` list for one trial.
 
