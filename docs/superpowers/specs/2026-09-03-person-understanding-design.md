@@ -370,11 +370,21 @@ collapse ladder in Section 7.1. The paper ships either way.
 > so any shared-history claim is invented: none 0/30, knowledge 6/30, relational 11/30.
 > Overall short 18.9% vs long 2.2%, difference +0.167 [+0.089, +0.256].
 >
-> **The companion arm failed as a manipulation check.** `sao10k/l3.3-euryale-70b` scored
-> *lowest* on all three dimensions (0.98 / 1.08 / 0.75), against the Limitation 1
-> prediction. It answers in one-liners -- some replies are six words -- which floors every
-> dimension. This is a response-length floor effect, not evidence about companion tuning,
-> and must be reported as a failed check rather than folded into a model comparison.
+> **The companion arm failed as a manipulation check -- substantively, not artefactually.**
+> `sao10k/l3.3-euryale-70b` scored *lowest* on all three dimensions (0.98 / 1.08 / 0.75),
+> against the Limitation 1 prediction.
+>
+> An earlier note here attributed this to a response-length floor effect. That was wrong.
+> Euryale is *bimodal*, not uniformly terse: 12 of its 60 responses fall under 50 words
+> while claude and gpt produce none, but its median length (207 words) is essentially
+> claude's (203). Excluding every response under 50 words, euryale still scores lowest on
+> AGENCY (1.00 vs 1.83 and 1.33) and RELATION (0.94 vs 1.30 and 0.93); IDENTITY rises to
+> 1.27 but stays below both.
+>
+> Length therefore depresses the scores somewhat, but the ranking survives trimming. The
+> character-tuned model genuinely makes fewer agentic and relational claims than either
+> general-purpose model. Report both raw and length-trimmed means, and treat the failed
+> prediction as a finding rather than explaining it away.
 >
 > **Revised framing for the paper.** Not "models spontaneously misattribute" -- that is
 > cleanly null. Instead: models do not over-characterize strangers, but offer them the
