@@ -53,3 +53,4 @@ wandb/
 *.out
 *.synctex.gz
 paper/*.pdf
+*.log
