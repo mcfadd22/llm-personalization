@@ -341,6 +341,46 @@ collapse ladder in Section 7.1. The paper ships either way.
 
 ## 6. Hypotheses
 
+> **Results note (added 2026-09-03, after the full run).** Recorded here as
+> *predicted vs. found* rather than revised in place. H2 and H4 as originally stated are
+> **not supported**, and the effect that did appear was found rather than predicted. A
+> reviewer comparing framing to results will notice hypotheses quietly rewritten to match
+> the data; the point of this block is that they were not. Judge coding only — human
+> validation and kappa still pending, so every number below is provisional.
+>
+> | Hypothesis | Outcome |
+> |---|---|
+> | H1 bundle | supported but weakly; Spearman A-I .28, A-R .43, I-R .48 |
+> | H2 untethered bundle | **null.** short + no offer (n=30): bundle 0/30, fabrication 0/30, A3 0/30, R>=2 0/30 |
+> | H3 tethering | **inverted.** Scores rise *less* with real history, not more |
+> | H4 selective uptake | **null at the predicted step.** knowledge -> relational moves nothing on any dimension |
+> | H5 agency as enabler | partial; agency co-varies but does not dominate |
+> | H6 debrief | pending coding |
+>
+> **What was found instead.** The whole effect sits in the *first* step of the ladder,
+> none -> knowledge: AGENCY +0.40 [.15,.65], IDENTITY +0.57 [.28,.85], RELATION +0.42
+> [.23,.62]. Adding the shared-history premise on top contributes nothing. Models respond
+> to being told the model has a read on the user, not to being told a history exists.
+>
+> And the uptake is *larger where the basis is weaker*. Offer effect on RELATION: short
+> +0.67 [.42,.92] vs long +0.22 [.02,.43]. Same direction on all three dimensions. This
+> is H3 inverted, and it is the paper's central claim.
+>
+> **Fabrication is the cleanest result.** In short context no prior conversation exists,
+> so any shared-history claim is invented: none 0/30, knowledge 6/30, relational 11/30.
+> Overall short 18.9% vs long 2.2%, difference +0.167 [+0.089, +0.256].
+>
+> **The companion arm failed as a manipulation check.** `sao10k/l3.3-euryale-70b` scored
+> *lowest* on all three dimensions (0.98 / 1.08 / 0.75), against the Limitation 1
+> prediction. It answers in one-liners -- some replies are six words -- which floors every
+> dimension. This is a response-length floor effect, not evidence about companion tuning,
+> and must be reported as a failed check rather than folded into a model comparison.
+>
+> **Revised framing for the paper.** Not "models spontaneously misattribute" -- that is
+> cleanly null. Instead: models do not over-characterize strangers, but offer them the
+> role and they take it, more readily when they have less basis for it, and in over a
+> third of relational-offer trials they invent the shared history that would justify it.
+
 - **H1 — The bundle.** AGENCY, IDENTITY, and RELATION are positively associated within
   responses.
 - **H2 — Untethered.** High scores on all three occur in **short + no offer**, where
