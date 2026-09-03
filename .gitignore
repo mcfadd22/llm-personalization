@@ -45,3 +45,11 @@ wandb/
 .DS_Store
 .idea/
 .vscode/
+
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.blg
+*.out
+*.synctex.gz
+paper/*.pdf
