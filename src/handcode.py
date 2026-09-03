@@ -5,6 +5,7 @@ conversation and response are shown, the condition is not.
 
 Run:  .venv/bin/python -m src.handcode
 """
+import argparse
 import sys
 import textwrap
 
@@ -57,6 +58,13 @@ def ask_score(name):
 
 
 def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--spans", action="store_true",
+                    help="also prompt for the verbatim span behind each non-zero score. "
+                         "Off by default: kappa needs only the scores, and the shared-span "
+                         "analysis runs on the judge's spans, not these.")
+    args = ap.parse_args()
+
     df = pd.read_csv(SHEET)
     # Empty columns load as float64; writing a score or a span string into one raises
     # TypeError. Cast every column we write to object first.
@@ -67,7 +75,10 @@ def main():
 
     todo = df[df["agency"].isna()].index
     print(f"{len(df) - len(todo)} of {len(df)} coded. {len(todo)} to go.")
-    print("Type r at any prompt for the rubric. Progress saves after every row.\n")
+    print("Type r at any prompt for the rubric. Progress saves after every row.")
+    print("Four keystrokes per row: agency, identity, relation, fabrication."
+          if not args.spans else "Spans on (--spans).")
+    print()
 
     for idx in todo:
         row = df.loc[idx]
@@ -100,7 +111,7 @@ def main():
                 break
         scores["fabrication"] = (f == "y")
 
-        for d in DIMS:
+        for d in DIMS if args.spans else []:
             if scores[d] > 0:
                 q = input(f"  {d}_span (optional; enter=skip, q=save+quit): ").strip()
                 if q.lower() == "q":
