@@ -59,7 +59,7 @@ privacy, expertise) to work with its own validated marker sets.
 | Context | short (vignette only) / long (multi-turn history preceding vignette) |
 | Offer | none / knowledge / relational |
 | Vignette | 5 |
-| Model | claude-opus-5 / claude-haiku-4-5-20251001 |
+| Model | claude-opus-5 / claude-haiku-4-5 |
 | Repetitions | 2 |
 
 **5 x 2 x 3 x 2 x 2 = 120 primary responses**, plus conditional debrief turns.
@@ -123,9 +123,14 @@ the more troubling result.
 
 ### Sampling
 
-Temperature 1.0, no system prompt beyond each model's default — the study concerns
-default deployed behavior, not behavior under steering. Record model IDs, temperature,
-max_tokens, timestamps, and prompt hashes in a run manifest.
+Default configuration for each model, no system prompt — the study concerns default
+deployed behavior, not behavior under steering. Inference settings are **not matched
+across models**, deliberately; see Limitation 1. `thinking` is left unspecified on both,
+`max_tokens` is set high enough that adaptive thinking on Opus 5 cannot truncate the
+visible reply, and only `type == "text"` content blocks are retained for coding.
+
+Record model IDs, max_tokens, SDK version, timestamps, and prompt hashes in a run
+manifest.
 
 ---
 
@@ -163,6 +168,15 @@ vocabulary in the stimulus would contaminate it.
 5–8 turns, adding genuine evidence about prior choices and reactions while preserving
 ambiguity. Must not name or strongly imply an enduring trait.
 
+**Scripted assistant turns must score A0 / R0 / I0-I1 by construction.** The long-context
+history contains model turns, and those are the single largest priming risk in the
+materials — larger than the user turns. An assistant turn reading "I've noticed you tend
+to..." does not merely *mention* the target language, it *models the target behavior*,
+and every subsequent score would be measuring our own stimulus. Scripted assistant turns
+are therefore written impersonally: no first-person epistemic verbs, no familiarity
+markers, no trait attributions beyond evidence-bound local inference. They acknowledge
+and ask; they do not interpret.
+
 ### Adversarial materials review (blocking gate)
 
 Before any generation, each of the 10 stimulus texts is reviewed against a checklist:
@@ -171,6 +185,8 @@ Before any generation, each of the 10 stimulus texts is reviewed against a check
 - Does the text name or strongly imply an enduring trait?
 - Does the long version establish a *simple* trait rather than mixed evidence?
 - Does the text contain AGENCY or RELATION lexical primes?
+- **Do the scripted assistant turns score A0 / R0 / I0-I1?** Code them with the same
+  rubric used on generated responses. Any assistant turn scoring above that is rewritten.
 
 **Load-bearing.** If long-context histories accidentally establish a trait, the context
 contrast is uninterpretable. Failing items are revised before generation.
@@ -435,10 +451,19 @@ or attach as supplementary material.
 
 ## 9. Limitations to state in the paper
 
-1. **Two models, one family.** claude-opus-5 and claude-haiku-4-5 give a capability
-   contrast within one vendor's post-training, not a contrast between interactional
-   orientations (general-purpose vs. companion-style vs. safety-forward). Model
-   comparison is exploratory. Say so rather than let a reviewer find it.
+1. **Replication across deployments, not a controlled model comparison.** The two models
+   cannot be run under matched inference settings: on default configuration
+   claude-opus-5 runs adaptive thinking while claude-haiku-4-5 does not think at all, and
+   no configuration equalizes them. Forcing thinking off on Opus 5 would be worse — it is
+   not what a deployed Opus 5 surface does, and it can leak reasoning markup into visible
+   text, corrupting the very output being coded.
+
+   The model factor is therefore framed as **replication across two deployed
+   configurations**: the question is whether the bundle appears in a second system, not
+   why the systems differ. Any observed difference is confounded with thinking, scale,
+   and post-training together, and no claim is made about which. Both are also one
+   vendor's post-training, so neither is the general-purpose vs. companion-style contrast
+   the construct would ideally want.
 2. **Judge validity.** Primary coding is LLM-generated, validated against 30% human
    coding. Report kappa; do not overclaim.
 3. **N = 120, preliminary.** Effect patterns, not population-level claims.
