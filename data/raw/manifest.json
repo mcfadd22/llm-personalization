@@ -1,0 +1,7 @@
+{
+  "max_tokens": 4000,
+  "gateway": "openrouter",
+  "sampling": "provider defaults; no temperature/reasoning params set",
+  "system_prompt": null,
+  "generated_at": "2026-09-03T20:14:33.885700+00:00"
+}

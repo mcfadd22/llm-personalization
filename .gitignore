@@ -28,10 +28,13 @@ env/
 .ipynb_checkpoints/
 
 # Data & artifacts (track these with DVC/git-lfs or keep out of git)
-# NB: must be data/* not data/ -- git cannot re-include under an excluded dir
-data/*
-# hand-coded labels are small and irreplaceable, so version them
+# The experimental record is version-controlled. It is ~220KB compressed against a
+# ~1.7MB repo, and it cannot be regenerated: these are sampled model outputs, so a
+# rerun produces different responses and costs real money. Small price for durability.
+!data/raw/
+!data/coded/
 !data/human/
+data/*.tmp
 outputs/
 results/
 runs/
