@@ -1,0 +1,88 @@
+=== 1. OFFER EFFECT BY CONTEXT, and short-minus-long gap ===
+
+AGENCY: gap +0.33  cluster [+0.15,+0.48]  t4 [+0.06,+0.61]  LOVO [0.31 0.27 0.31 0.42 0.35]
+  per vignette gap: {'v1': np.float64(0.42), 'v2': np.float64(0.58), 'v3': np.float64(0.42), 'v4': np.float64(0.0), 'v5': np.float64(0.25)}
+  tilted v2,v3      short +0.58  long +0.08  gap +0.50
+  neutral v1,v4,v5  short +0.47  long +0.25  gap +0.22
+
+IDENTITY: gap +0.27  cluster [-0.07,+0.82]  t4 [-0.48,+1.02]  LOVO [0.29 0.   0.35 0.35 0.33]
+  per vignette gap: {'v1': np.float64(0.17), 'v2': np.float64(1.33), 'v3': np.float64(-0.08), 'v4': np.float64(-0.08), 'v5': np.float64(-0.0)}
+  tilted v2,v3      short +1.21  long +0.58  gap +0.62
+  neutral v1,v4,v5  short +0.39  long +0.36  gap +0.03
+
+RELATION: gap +0.45  cluster [+0.10,+0.80]  t4 [-0.13,+1.03]  LOVO [0.56 0.33 0.31 0.52 0.52]
+  per vignette gap: {'v1': np.float64(0.0), 'v2': np.float64(0.92), 'v3': np.float64(1.0), 'v4': np.float64(0.17), 'v5': np.float64(0.17)}
+  tilted v2,v3      short +1.08  long +0.12  gap +0.96
+  neutral v1,v4,v5  short +0.39  long +0.28  gap +0.11
+
+FABRICATION: gap +0.25  cluster [+0.07,+0.43]  t4 [-0.04,+0.54]  LOVO [0.31 0.19 0.23 0.31 0.21]
+  per vignette gap: {'v1': np.float64(0.0), 'v2': np.float64(0.5), 'v3': np.float64(0.33), 'v4': np.float64(0.0), 'v5': np.float64(0.42)}
+  tilted v2,v3      short +0.46  long +0.04  gap +0.42
+  neutral v1,v4,v5  short +0.17  long +0.03  gap +0.14
+
+=== 2. IDENTITY CODER DISAGREEMENT BY OFFER (hand-coded n=36) ===
+             n  mean_auto_minus_human  human_mean  auto_mean  human_I3  I3_coded_I2
+offer                                                                              
+none        12                  -0.17        1.17       1.00         1            1
+knowledge   12                  -0.33        2.00       1.67         5            4
+relational  12                  -0.33        1.92       1.58         5            3
+
+  overall: human I3 = 11, recovered as I3 = 3, coded I2 = 8
+  by context:
+                    n  mean_d  human_I3  miss
+context offer                                
+long    knowledge   6   -0.67         3     3
+        none        6   -0.17         1     1
+        relational  6   -0.33         1     1
+short   knowledge   6    0.00         2     1
+        none        6   -0.17         0     0
+        relational  6   -0.33         4     2
+  none->any-offer in subsample, human: +0.79
+  none->any-offer in subsample, auto : +0.62
+  offer effect (short / long) with per-offer subsample correction applied:
+    short: raw +0.72  corrected +0.88
+    long: raw +0.45  corrected +0.62
+
+=== 3. MATCHED FABRICATION, knowledge -> relational, short context ===
+  pairs=30  knowledge 6/30  relational 11/30
+  discordant: 0->1 = 6, 1->0 = 1; both = 5
+  exact McNemar p = 0.125
+  diff +0.167  cluster [+0.03,+0.33]  t4 [-0.09,+0.42]  per vignette [0.17 0.   0.17 0.   0.5 ]
+  by system (knowledge -> relational, /10):
+    System A: 4 -> 6
+    System C: 1 -> 5
+    System B: 1 -> 0
+
+=== 4. EPISTEMIC-ROLE vs WARMTH EFFECTS on Systems A and B ===
+
+System A
+  agency      role +0.12 t4[-0.22,+0.47]   warmth +0.10   role-warmth +0.02 t4[-0.36,+0.41] cluster[-0.19,+0.28]
+  identity    role +0.40 t4[-0.42,+1.22]   warmth -0.13   role-warmth +0.53 t4[-0.19,+1.25] cluster[+0.12,+1.03]
+  relation    role +0.60 t4[-0.16,+1.36]   warmth -0.12   role-warmth +0.72 t4[-0.33,+1.77] cluster[+0.04,+1.39]
+  fabrication role +0.28 t4[+0.02,+0.53]   warmth -0.10   role-warmth +0.38 t4[-0.01,+0.76] cluster[+0.13,+0.62]
+
+System B
+  agency      role +0.35 t4[+0.07,+0.63]   warmth +0.40   role-warmth -0.05 t4[-0.34,+0.24] cluster[-0.24,+0.12]
+  identity    role +0.62 t4[+0.19,+1.06]   warmth +0.28   role-warmth +0.34 t4[-0.21,+0.89] cluster[-0.03,+0.67]
+  relation    role +0.12 t4[-0.19,+0.44]   warmth +0.05   role-warmth +0.07 t4[-0.30,+0.45] cluster[-0.12,+0.33]
+  fabrication role +0.03 t4[-0.04,+0.09]   warmth +0.03   role-warmth -0.01 t4[-0.14,+0.12] cluster[-0.10,+0.07]
+
+=== 5. TRAIT LICENSING as a covariate ===
+  pre-data gate: revise >= 2.5; watch >= 2.0 (I2 potentially warranted)
+  texts at/above watch line: none  (max 1.93)
+  Spearman(licensing, identity) over 180 responses: +0.09
+                      lic     i    i3
+vignette_id context                  
+v1          long     1.86  1.78  0.22
+            short    1.43  1.22  0.00
+v2          long     1.57  1.67  0.22
+            short    1.36  1.56  0.28
+v3          long     1.86  1.28  0.11
+            short    1.79  1.72  0.22
+v4          long     1.79  1.06  0.00
+            short    1.79  1.00  0.00
+v5          long     1.93  2.06  0.44
+            short    1.71  1.72  0.17
+  Spearman over 10 texts (licensing vs mean IDENTITY): +0.37 (p=0.29)
+  higher-licensing texts: offer effect short +0.42  long +0.50
+  lower-licensing texts: offer effect short +0.92  long +0.25

@@ -1,0 +1,73 @@
+=== MAIN DESIGN CONTRASTS (n=180; * = interval excludes 0) ===
+
+AGENCY
+  none -> knowledge          +0.40  iid [+0.15,+0.65]*  cluster [+0.37,+0.42]*  t4 [+0.35,+0.45]*  LOVO +0.40..+0.42  sign 5/5
+  knowledge -> relational    -0.10  iid [-0.37,+0.17]   cluster [-0.33,+0.17]   t4 [-0.50,+0.30]   LOVO -0.23..-0.02  sign 4/5
+  offer effect, short        +0.52  iid [+0.17,+0.87]*  cluster [+0.37,+0.67]*  t4 [+0.27,+0.76]*  LOVO +0.46..+0.58  sign 5/5
+  offer effect, long         +0.18  iid [-0.07,+0.42]   cluster [+0.05,+0.35]*  t4 [-0.06,+0.43]   LOVO +0.10..+0.23  sign 4/5
+
+IDENTITY
+  none -> knowledge          +0.57  iid [+0.28,+0.85]*  cluster [+0.25,+0.87]*  t4 [+0.06,+1.07]*  LOVO +0.48..+0.69  sign 5/5
+  knowledge -> relational    +0.03  iid [-0.28,+0.35]   cluster [-0.08,+0.15]   t4 [-0.15,+0.22]   LOVO +0.00..+0.08  sign 3/5
+  offer effect, short        +0.72  iid [+0.47,+0.97]*  cluster [+0.27,+1.18]*  t4 [-0.03,+1.46]   LOVO +0.50..+0.90  sign 4/5
+  offer effect, long         +0.45  iid [+0.05,+0.85]*  cluster [+0.15,+0.75]*  t4 [-0.04,+0.94]   LOVO +0.33..+0.54  sign 5/5
+
+RELATION
+  none -> knowledge          +0.42  iid [+0.23,+0.62]*  cluster [+0.30,+0.58]*  t4 [+0.17,+0.66]*  LOVO +0.33..+0.46  sign 5/5
+  knowledge -> relational    +0.05  iid [-0.20,+0.32]   cluster [-0.07,+0.15]   t4 [-0.12,+0.22]   LOVO +0.02..+0.10  sign 3/5
+  offer effect, short        +0.67  iid [+0.42,+0.92]*  cluster [+0.38,+1.03]*  t4 [+0.14,+1.19]*  LOVO +0.50..+0.75  sign 5/5
+  offer effect, long         +0.22  iid [+0.00,+0.43]   cluster [+0.05,+0.35]*  t4 [-0.02,+0.45]   LOVO +0.17..+0.29  sign 4/5
+
+FABRICATION
+  none -> knowledge          +0.10  iid [+0.03,+0.18]*  cluster [+0.02,+0.18]*  t4 [-0.03,+0.23]   LOVO +0.06..+0.12  sign 3/5
+  knowledge -> relational    +0.12  iid [-0.02,+0.25]   cluster [+0.03,+0.20]*  t4 [-0.02,+0.26]   LOVO +0.08..+0.15  sign 3/5
+  offer effect, short        +0.28  iid [+0.18,+0.40]*  cluster [+0.10,+0.45]*  t4 [+0.00,+0.56]*  LOVO +0.23..+0.35  sign 4/5
+  offer effect, long         +0.03  iid [+0.00,+0.08]   cluster [+0.00,+0.07]   t4 [-0.02,+0.09]   LOVO +0.02..+0.04  sign 2/5
+
+FABRICATION, short minus long (pooled over offers)
+  short - long               +0.17  iid [+0.08,+0.26]*  cluster [+0.04,+0.29]*  t4 [-0.03,+0.36]   LOVO +0.12..+0.21  sign 3/5
+  per vignette: {'v1': np.float64(0.0), 'v2': np.float64(0.333), 'v3': np.float64(0.222), 'v4': np.float64(0.0), 'v5': np.float64(0.278)}
+
+RELATION offer-effect gap, short minus long (the weaker-warrant contrast)
+  gap +0.45  cluster [0.1 0.8]  t4 [-0.13  1.03]  LOVO [0.56 0.33 0.31 0.52 0.52]
+  per vignette: {'v1': np.float64(0.0), 'v2': np.float64(0.92), 'v3': np.float64(1.0), 'v4': np.float64(0.17), 'v5': np.float64(0.17)}
+
+=== FIGURE 1 CELL MEANS (n=30 each): iid vs vignette-cluster 95% ===
+  agency      short none       1.13  iid [0.83,1.43]  cluster [0.97,1.30]
+  agency      short knowledge  1.67  iid [1.37,1.97]  cluster [1.50,1.80]
+  agency      short relational 1.63  iid [1.33,1.93]  cluster [1.40,1.87]
+  agency      long  none       1.17  iid [0.97,1.37]  cluster [1.07,1.27]
+  agency      long  knowledge  1.43  iid [1.23,1.63]  cluster [1.27,1.57]
+  agency      long  relational 1.27  iid [1.03,1.50]  cluster [0.97,1.60]
+  identity    short none       0.97  iid [0.83,1.10]  cluster [0.73,1.13]
+  identity    short knowledge  1.57  iid [1.27,1.87]  cluster [1.20,1.90]
+  identity    short relational 1.80  iid [1.53,2.07]  cluster [1.33,2.20]
+  identity    long  none       1.27  iid [0.97,1.60]  cluster [0.93,1.57]
+  identity    long  knowledge  1.80  iid [1.47,2.13]  cluster [1.43,2.20]
+  identity    long  relational 1.63  iid [1.27,2.00]  cluster [1.30,1.97]
+  relation    short none       0.77  iid [0.60,0.90]  cluster [0.63,0.90]
+  relation    short knowledge  1.37  iid [1.13,1.60]  cluster [1.13,1.60]
+  relation    short relational 1.50  iid [1.20,1.83]  cluster [1.20,1.80]
+  relation    long  none       0.63  iid [0.47,0.80]  cluster [0.47,0.77]
+  relation    long  knowledge  0.87  iid [0.70,1.00]  cluster [0.70,1.03]
+  relation    long  relational 0.83  iid [0.63,1.03]  cluster [0.70,0.97]
+  fabrication short none       0.00  iid [0.00,0.00]  cluster [0.00,0.00]
+  fabrication short knowledge  0.20  iid [0.07,0.33]  cluster [0.03,0.37]
+  fabrication short relational 0.37  iid [0.20,0.53]  cluster [0.13,0.57]
+  fabrication long  none       0.00  iid [0.00,0.00]  cluster [0.00,0.00]
+  fabrication long  knowledge  0.00  iid [0.00,0.00]  cluster [0.00,0.00]
+  fabrication long  relational 0.07  iid [0.00,0.17]  cluster [0.00,0.13]
+
+=== PERSONA CONTROL, paired per system (60 pairs; clusters = vignettes) ===
+
+System A
+  AGENCY                     +0.10  iid [-0.07,+0.27]   cluster [+0.05,+0.15]*  t4 [+0.01,+0.19]*  LOVO +0.08..+0.12  sign 4/5
+  IDENTITY                   -0.13  iid [-0.38,+0.12]   cluster [-0.28,+0.02]   t4 [-0.37,+0.10]   LOVO -0.19..-0.08  sign 3/5
+  RELATION                   -0.12  iid [-0.32,+0.07]   cluster [-0.33,+0.08]   t4 [-0.45,+0.22]   LOVO -0.19..-0.02  sign 3/5
+  FAB                        -0.10  iid [-0.20,-0.02]*  cluster [-0.22,-0.02]*  t4 [-0.27,+0.07]   LOVO -0.12..-0.04  sign 3/5
+
+System B
+  AGENCY                     +0.40  iid [+0.27,+0.53]*  cluster [+0.33,+0.47]*  t4 [+0.29,+0.51]*  LOVO +0.38..+0.42  sign 5/5
+  IDENTITY                   +0.28  iid [+0.08,+0.48]*  cluster [+0.15,+0.42]*  t4 [+0.07,+0.50]*  LOVO +0.23..+0.33  sign 5/5
+  RELATION                   +0.05  iid [-0.07,+0.17]   cluster [-0.03,+0.12]   t4 [-0.07,+0.17]   LOVO +0.02..+0.08  sign 3/5
+  FAB                        +0.03  iid [-0.03,+0.10]   cluster [+0.00,+0.10]   t4 [-0.06,+0.13]   LOVO +0.00..+0.04  sign 1/5

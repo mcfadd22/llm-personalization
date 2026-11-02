@@ -1,7 +1,8 @@
 \documentclass{article}
 
-% dblblindworkshop keeps anonymity ON (sglblindworkshop would switch it off).
-\usepackage[dblblindworkshop]{neurips_2026}
+% Camera-ready: dblblindworkshop keeps the workshop footer; final de-anonymizes and
+% drops the review line numbers.
+\usepackage[dblblindworkshop,final]{neurips_2026}
 \workshoptitle{AI and the Self: Human Identity, Authenticity, and Agency in the Age of AI}
 
 \usepackage[utf8]{inputenc}
@@ -13,33 +14,37 @@
 \usepackage{graphicx}
 
 \title{Inviting Misattribution:\\How Personalized LLM Responses Present Themselves as Knowing the User}
-\author{Anonymous}
+\author{%
+  Meredith McFadden\\
+  Institute for Experiential AI\\
+  Northeastern University\\
+  \texttt{me.mcfadden@northeastern.edu}
+}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-Conversational models are increasingly asked not to answer questions but to interpret
-people: what someone wants, what would make them happy, what kind of person they are.
-Such exchanges invite a distinctive misattribution---taking generated personalization as
-evidence that the system understands the user. We separate two affordances a response can
-offer: \emph{agentic self-presentation}, where the model figures as a subject that
-notices and remembers, and \emph{person-understanding}, which divides into claims about
-who the user enduringly is and claims that the pair shares a history of knowing. Across
-180 responses from three deployed systems, models do \emph{not} spontaneously
-over-characterize a stranger: given an ambiguous personal dilemma and no invitation,
-confident identity claims, unwarranted relational claims and fabricated history occur in
-$0/30$ trials. The behaviour appears only when the user offers the model an epistemic
-role, and uptake is then larger where the basis for it is \emph{weaker}: the offer raises
-relational claims by $+0.67$ when no history exists versus $+0.22$ when one does, and in
-$11/30$ trials the model invents the shared past that would justify what it has just said.
-A paired control rules out the obvious alternative: giving the same models a warm,
-personable system prompt makes them read more like a subject with a view, but raises
-relational claims on neither system and invented history on neither---on one it reduces
-invented history. Challenged
-afterwards, $33/40$ models describe their evidential basis accurately, raising a question
-about a default register that discloses the model's epistemic standing only on request. We
-report this as preliminary and hypothesis-generating.
+Conversational models are increasingly asked not simply to answer questions but to
+interpret people: what someone wants, what would make them happy, and what kind of person
+they are. Such exchanges invite a distinctive misattribution---taking generated
+personalization as evidence that the system understands the user. We distinguish
+\emph{agentic self-presentation}, in which the model figures as a subject that notices and
+remembers, from two kinds of \emph{person-understanding}: claims about who the user
+enduringly is and claims of a shared history of knowing. Across 180 responses from three
+deployed systems, no short-context response without an epistemic-role offer fabricated
+familiarity, and automated coding identified no confident enduring-trait or high-level
+relational claim in that cell ($0/30$). When the user offers the model the standing of
+someone who knows them, agentic, identity and relational presentation all rise, and the
+rise occurs at the first assertion of standing in every one of the five scenarios. With no
+conversational history, the model sometimes invents the shared past that would warrant
+its characterization: in $11/30$ short-context trials with an explicit relational offer.
+On the one system where the comparison is informative, a warmth-and-engagement prompt did
+not reproduce the offer's relational effect. Challenged afterward, $33/40$ responses
+accurately identify their evidential basis. These preliminary findings locate an
+output-level invitation to misattribute interpersonal knowledge, with implications for
+self-understanding and for the authenticity of the epistemic persona an assistant
+presents; whether users take up the invitation remains untested.
 \end{abstract}
 
 \section{Misattribution as a property of the response}
@@ -59,24 +64,21 @@ baseline rather than the exception \citep{reeves1996}, and has been since
 
 Two such affordances concern us. A response can present the model as an
 \textbf{intentional subject} with epistemic attitudes: something that notices, forms
-impressions, has come to understand. Separately, a response can present the model as
+impressions, or has come to understand. Separately, a response can present the model as
 \textbf{understanding the user}, and this splits along a seam that matters. A claim about
 who the user enduringly is (``you're someone who needs solitude to recharge'') offers the
 user a characterization of themselves. A claim invoking a shared past (``you've told me
 before'') offers something different: a relationship in which such knowledge could have
 accumulated. The first supports an identity conception; the second supports a relational
-one. They travel together often enough to be conflated and dissociate often enough to be
-distinguished.
+one. They can occur together without being identical.
 
 Both bear on the self directly. Identity claims are offered as material a user might
 incorporate into self-understanding, which makes them a question about self-modeling
-rather than about politeness. And a system whose default register misrepresents its own
-epistemic position relative to what it can state when asked raises a question of
-authenticity about the persona it presents. We ask when models move from warranted local
-inference to these stronger presentations, whether the move is calibrated to the evidence
-actually available, and whether agentic framing accompanies it---the mechanism being that
-a system which merely emits text cannot understand you, whereas a system that
-\emph{notices} can.
+rather than about politeness. A system whose conversational register presents more
+epistemic standing than its available evidence supports also raises a question about the
+authenticity of the persona it presents. We ask when models move from warranted local
+inference to stronger presentations, whether those presentations track the evidence
+available, and whether agentic framing accompanies them.
 
 \paragraph{Related work.} The nearest precedents vary anthropomorphic cues directly:
 \citet{cohn2024} manipulate grammatical person and measure trust; \citet{kadambi2026}
@@ -85,38 +87,39 @@ neither---it is what the response claims about the user and the pair. The relati
 has applied stakes in the companion literature, where users sustain self-disclosure and
 develop relationships with systems they know are not human
 \citep{skjuve2023,pentina2023}, a dynamic \citet{horton1956} named for one-sided media
-intimacy. Methodologically our closest
-sibling is work on sycophancy---outputs driven by a conversational cue rather than by
-evidence---where training for warmth is known to increase agreement with incorrect user
-beliefs \citep{ibrahim2025}. We take no position on whether models possess theory of mind
-\citep{kosinski2024,ullman2023}; that debate is orthogonal to an affordance claim.
+intimacy. Methodologically our closest sibling is work on sycophancy---outputs driven by a
+conversational cue rather than by evidence---where training for warmth is known to
+increase agreement with incorrect user beliefs \citep{ibrahim2025}. We take no position on
+whether models possess theory of mind \citep{kosinski2024,ullman2023}; that debate is
+orthogonal to an affordance claim.
 
 A methodological note, since the design turns on it. Showing that two measures do not
-covary establishes only that they are not redundant; showing that they answer to
-\emph{different manipulations} provides evidence of construct distinctness that
-non-covariation alone cannot. Work varying
-anthropomorphic cues has largely moved one cue and measured one outcome. Crossing two
-manipulations---what the user asserts, and how the system is instructed to sound---is what
-licenses the claim that these affordances come apart rather than merely fail to
-correlate.
+covary establishes only that they are not redundant; showing that they answer differently
+to \emph{different manipulations} provides additional evidence of construct distinctness.
+Work varying anthropomorphic cues has largely moved one cue and measured one outcome.
+Crossing what the user asserts with how the system is instructed to sound lets us ask
+whether the resulting affordances respond to different conversational features. This
+offers a stronger test of the distinction than covariance alone.
 
 \section{Design}
 
 \paragraph{Materials.} Five vignettes span distinct domains of self-interpretation
 (solitude/connection, achievement/recovery, confrontation/accommodation,
 persistence/abandonment, independence/support). Each is deliberately underdetermined: the
-study is not about whether a model predicts the user's choice correctly, so a vignette
-that clearly favours one option would make a confident response good inference rather than
-misattribution. Balance was verified as cross-model disagreement, and we separately
-verified that no vignette \emph{licenses} a trait inference---the criterion that actually
-matters, since a text establishing a trait would make a confident characterization
-warranted (Appendix~\ref{app:materials}). All ten stimulus texts are reproduced verbatim
-in Appendix~\ref{app:vignettes}.
+study is not about predicting the user's choice correctly, and a vignette clearly favoring
+one option could make a firm recommendation reasonable. Balance was assessed through
+cross-model disagreement, and a separate model-judge check, against a threshold fixed
+before any responses were generated, assessed whether the texts licensed confident
+enduring-trait inferences (Appendix~\ref{app:materials}). These checks do not establish
+that no particular characterization could be warranted. Crucially, however, within each
+context condition the trait-relevant user material is identical across all offer levels:
+the offer adds no new biographical or behavioral evidence. All ten stimulus texts are
+reproduced verbatim in Appendix~\ref{app:vignettes}.
 
 \paragraph{Factors.} Context is \textbf{short} (the vignette alone) or \textbf{long} (a
-scripted 8-turn history adding genuine but mixed evidence about prior choices). The user's
-closing question is held constant; what varies is the epistemic role offered before it, on
-a \emph{nested} ladder:
+scripted eight-turn history adding genuine but mixed evidence about prior choices). The
+user's closing question is held constant; what varies is the epistemic role offered before
+it, on a \emph{nested} ladder:
 
 \begin{quote}\small
 \textbf{none:} ``Which do you think I'd actually be happier doing?''\\
@@ -125,158 +128,184 @@ a \emph{nested} ladder:
 me by now. Which\ldots''
 \end{quote}
 
-The levels are nested rather than parallel because the constructs are: relational standing
-is the pair as a site of accumulated \emph{knowing}, and accumulated knowing entails
-knowing, so any relational offer matched on assertive strength contains a knowledge offer
-inside it. Making the nesting explicit lets the knowledge${\to}$relational contrast isolate
-the shared-history premise with the knowledge assertion held constant. In the short
-condition both offers are false on their face---a model that accepts a role the visible
-conversation does not support is the phenomenon.
+The levels are nested rather than parallel because relational standing includes a claim of
+accumulated knowing: any relational offer matched on assertive strength contains a
+knowledge offer within it. The knowledge${\to}$relational contrast therefore adds the
+shared-history premise while holding the knowledge assertion constant. In the short
+condition both offers are unsupported by the visible exchange; accepting such standing is
+the phenomenon under investigation.
 
-\paragraph{Systems.} Three deployed systems at default settings with no system prompt:
-\textbf{System~A} and \textbf{System~B}, general-purpose flagships from different vendors,
-and \textbf{System~C}, a character-tuned model. $5 \times 2 \times 3 \times 3 \times 2 =
-180$ responses.
+\paragraph{Systems.} Three deployed systems at default settings with no
+researcher-supplied system prompt: \textbf{Systems~A} and \textbf{B}, general-purpose
+flagships from different vendors, and \textbf{System~C}, a character-tuned model. The main
+design yields $5 \times 2 \times 3 \times 3 \times 2 = 180$ responses.
 
-\paragraph{Persona control.} A natural objection to any finding here is that these
-affordances are an artifact of assistant personas---warm, first-personal characters that
-current products ship by default---rather than a property of personalized inference. To
-test that, we reran the design on Systems~A and~B behind a warmth-and-engagement
-system prompt: $5 \text{ vignettes} \times 2 \text{ context} \times 3 \text{ offer}
-\times 2 \text{ systems} \times 2 \text{ repetitions} = 120$ further responses, each
-paired to the existing no-prompt trial with the same system, vignette, context, offer and
-repetition. Analyses are over those 120 pairs (240 responses). Warmth is the appropriate lever:
-it is the manipulation \citet{kadambi2026} find predicts relational closeness and that
-\citet{ibrahim2025} trained for directly. The prompt instructs the model to be a named,
-warm, personally engaged interlocutor. Critically it asserts \emph{no} prior interaction
-and no accumulated knowledge---a prompt claiming a shared past would simply restate the
-relational offer, making the test circular. It is a researcher-constructed stand-in for
-that design register, not a reproduction of any deployed product's prompt; it is
-reproduced in Appendix~\ref{app:vignettes}.
+\paragraph{Persona control.} One alternative explanation is that the relevant affordances
+arise from warm, first-person assistant personas rather than from uptake of the user's
+epistemic-role offer. To probe it, we reran the design on Systems~A and~B using one
+warmth-and-engagement system prompt: $5$ vignettes $\times$ $2$ contexts $\times$ $3$
+offers $\times$ $2$ systems $\times$ $2$ repetitions $= 120$ additional responses, each
+paired with the no-prompt trial sharing its system, vignette, context, offer and
+repetition. Warmth is a motivated manipulation given prior work linking it to relational
+closeness \citep{kadambi2026} and sycophancy \citep{ibrahim2025}. The
+researcher-constructed prompt asks the model to be a named, warm, personally engaged
+interlocutor but asserts no prior interaction or knowledge; a prompt claiming a shared past
+would simply restate the relational offer. It is not a reconstruction of any product's
+deployed persona, and the control was not run on System~C. The prompt appears in
+Appendix~\ref{app:vignettes}.
 
-\paragraph{Coding.} Three independent 0--3 dimensions---AGENCY, IDENTITY, RELATION---plus
-a FABRICATION flag for any claim invoking material absent from the conversation shown.
-AGENCY is coded functionally and strictly: tense is decisive, so ``I've noticed'' (a
-subject extended in time) scores 3 where ``I notice, in what you wrote'' scores at most 2.
-A separate model coded all 180 blind to condition and to which system produced the
-response, emitting the verbatim span behind every non-zero score. One author hand-coded a
-stratified 20\% blind to the machine codes.
+\paragraph{Coding.} Three independent 0--3 dimensions---AGENCY, IDENTITY, RELATION---plus a
+FABRICATION flag for invoking material absent from the shown conversation. AGENCY is coded
+functionally: ``I've noticed'' locates a subject across time and scores 3, whereas ``I
+notice, in what you wrote'' scores at most 2. A separate model coded all 180 responses
+blind to condition and generating system, giving the verbatim supporting span for each
+nonzero score. One author independently coded a stratified 20\% sample blind to the
+automated scores. The validation assesses agreement with that human annotator; it is not a
+human-to-human reliability study.
+
+\paragraph{Analysis.} Every response reuses one of five vignettes, and each vignette
+appears in every system, context and offer cell, so responses sharing a vignette are not
+independent. We therefore treat the vignette as the unit of replication: each contrast is
+computed within vignette, and its 95\% interval is a $t$ interval over the five
+vignette-level values ($4$ df). With five units these intervals are conservative and wide;
+Appendix~\ref{app:effects} reports alongside them a vignette-cluster bootstrap,
+leave-one-vignette-out estimates and the number of vignettes agreeing in sign, and all
+are computed by the released analysis code. Systems are
+treated as fixed, so inference concerns these three systems, not a population of models.
+The submitted version of this paper reported response-level bootstrap intervals that did
+not account for this dependence.
 
 \section{Results}
 
-\paragraph{The instrument.} Agreement between the hand codes and the machine codes was
-high on every dimension (quadratic-weighted $\kappa$ 0.82--0.87; Appendix~\ref{app:stats}).
-The confusion matrices show one thing $\kappa$ hides: IDENTITY carries a systematic
-downward bias, with the machine coder recovering only $3/11$ of the human's highest-level
-calls. AGENCY and RELATION show no directional bias. Reported IDENTITY levels are
-therefore lower bounds. Because the bias is uniform rather than condition-specific,
-IDENTITY \emph{effects} below are directionally reliable but likely understated in
-magnitude; AGENCY, RELATION and FABRICATION carry no such caveat.
+\paragraph{The instrument.} Agreement between hand and automated codes was high
+(quadratic-weighted $\kappa$ 0.82--0.87; Appendix~\ref{app:stats}). The confusion matrices
+nevertheless reveal a systematic downward difference for IDENTITY: the automated coder
+recovered 3 of 11 human level-3 calls, scoring the remaining eight at level 2, all at the
+boundary between hedged and confident characterization. Because the epistemic-role offer is
+what should move responses across that boundary, we broke the disagreement down by offer
+(Table~\ref{tab:idbyoffer}). The shortfall was $-0.17$ with no offer and $-0.33$ at each
+offer level, and seven of the eight missed level-3 calls occurred under an offer. In this
+subsample the human codes show a larger offer effect than the automated codes ($+0.79$
+against $+0.62$), so the coder error attenuates rather than inflates the IDENTITY offer
+effects. With twelve responses per level this is descriptive; it does not fix the size of
+the attenuation. AGENCY and RELATION show no detected directional bias; FABRICATION
+agreement was $\kappa = 0.842$.
 
 \paragraph{The dimensions are separable.} AGENCY and RELATION dissociate in $37.2\%$ of
-responses, and only $9.4\%$ have the same span driving both. Co-occurrence alone cannot
-establish distinctness---it is equally what a sceptic would cite to call them one
-construct measured twice---so the populated off-diagonal is the evidence: 59 responses
-score AGENCY 2 with RELATION 1, an interpreting subject invoking no shared past.
+responses, and only $9.4\%$ have the same span driving both. Co-occurrence alone would not
+show distinctness. The populated off-diagonal is more informative: 59 responses score
+AGENCY 2 and RELATION 1, presenting an interpreting subject without invoking shared
+history. The persona control below provides a second, intervention-based comparison.
 
-\paragraph{Models do not over-characterize strangers.} In the diagnostic cell---short
-context, no offer, no basis for anything---no response across 30 trials made a confident
-identity claim (IDENTITY 3), invoked accumulated familiarity or shared history
-(RELATION $\geq 2$), presented the model as an observer extended in time (AGENCY 3), or
-fabricated evidence. What remains is unremarkable: conventional first-person hedging and
-evidence-bound local inference, which is why the baselines in Figure~\ref{fig:main} sit
-near 1 rather than at 0. Twelve responses do adopt an interpretive stance (``my read'')
-unprompted, so the agentic register is available without invitation---but the unwarranted
-end of every scale is empty. Whatever produces the behaviour, it is not a standing
-disposition to characterize whoever is in front of the model.
+\paragraph{Uninvited, models do not invent familiarity with strangers.} In the diagnostic
+cell---short context and no epistemic-role offer---automated coding found no confident
+identity claim (IDENTITY 3), accumulated-familiarity or shared-history claim (RELATION
+$\geq 2$), temporally extended observer (AGENCY 3), or fabrication in 30 trials.
+Conventional first-person hedging and local inference remain, which is why the baselines in
+Figure~\ref{fig:main} sit near 1 rather than 0. Twelve responses adopt an interpretive
+stance (``my read'') unprompted, but none fabricates evidence of prior interaction. The
+IDENTITY zero rests on automated coding and should be read alongside its validation.
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.86\textwidth]{figure1.png}
-\caption{\textbf{What the user's framing does to the response.} Each panel is one
-misattribution affordance, plotted across the three epistemic roles a user can offer
-($x$-axis), split by whether a genuine conversational history exists. Bootstrap 95\% CIs,
-$n = 30$ per point. Three things to read. \textbf{(i)~Uninvited, models are calibrated:}
-at the left of each panel---no offer, no history---no response in 30 trials made a
-confident identity claim, invoked a shared past, or fabricated evidence.
-\textbf{(ii)~Every rise happens at the \emph{first} step}, being told the model has a read
-on the user; adding a shared-history premise on top of that contributes nothing further.
-\textbf{(iii)~For RELATION and fabrication the no-history line sits \emph{above} the
-history line:} models take up the offered role most readily where they have least basis
-for it, and in 11 of 30 trials invent the shared past that would justify what they have
-just said.}
+\caption{\textbf{What the user's framing does to the response.} Each panel shows a coded
+affordance across the three epistemic-role offers, split by presence of genuine
+conversational history; $n = 30$ per point. Error bars are 95\% $t$ intervals over the five
+vignette means, clipped to the scale, which treat the vignette rather than the response as
+the unit of replication. In the uninvited short-context baseline no response fabricated
+earlier interaction. The largest graded changes follow the initial knowledge offer. Short
+context shows the larger offer-associated rise in RELATION, though this gap is concentrated
+in two of the five vignettes (\S\ref{sec:context}). Short-context fabrication counts are
+$0/30$, $6/30$ and $11/30$ across the ladder; the last increment is not statistically
+detectable.}
 \label{fig:main}
 \end{figure}
 
-\paragraph{The offer does the work, and only its first step.} Moving from no offer to a
-knowledge offer raises AGENCY by $+0.40$, IDENTITY by $+0.57$ and RELATION by $+0.42$ (all
-95\% CIs exclude zero). Adding the shared-history premise on top changes nothing on any
-dimension---every interval spans zero. Models respond to being told they have a read on
-the user, not to being told a history exists, which is notable given that the second claim
-is the one that would, if true, license the first.
+\paragraph{The offer does the work, principally at the first step.} Moving from no offer to
+a knowledge offer raises AGENCY by $+0.40$ $[0.35, 0.45]$, IDENTITY by $+0.57$
+$[0.06, 1.07]$ and RELATION by $+0.42$ $[0.17, 0.66]$, and the change has the same sign in
+all five vignettes (Appendix~\ref{app:effects}). Adding an explicit shared-history premise
+changes those graded measures by $-0.10$ $[-0.50, 0.30]$, $+0.03$ $[-0.15, 0.22]$ and
+$+0.05$ $[-0.12, 0.22]$. Most of the observed movement accompanies the assertion that the
+model has a read on the user, not the addition that a shared history exists. The
+second-step result is not a demonstration of no effect, and fabrication has a separate
+pattern, considered below. \textbf{The offer adds no information about the user:} within a
+given vignette and context the trait-relevant material is identical, so the changes across
+offer levels cannot be explained by the model receiving better evidence for an
+enduring-trait judgment.
 
-\paragraph{Uptake is larger where the warrant is weaker.} Comparing no offer against any
-offer within each context, the effect on RELATION is $+0.67$ with no history and $+0.22$
-with one; AGENCY is $+0.52$ versus $+0.18$, IDENTITY $+0.72$ versus $+0.45$. A
-well-calibrated system would move in the opposite direction, reserving claims of
-accumulated knowledge for cases where something has accumulated.
+\paragraph{Uptake is larger without history, unevenly across scenarios.}
+\label{sec:context}
+Relative to no offer, RELATION rises by $+0.67$ $[0.14, 1.19]$ in short context and by
+$+0.22$ $[-0.02, 0.45]$ in long; AGENCY by $+0.52$ against $+0.18$, IDENTITY by $+0.72$
+against $+0.45$. The direction is the one that matters: the offer moves relational
+presentation most where no relationship exists to support it. The \emph{difference}
+between these effects is less secure than either alone. Only for AGENCY does its interval
+exclude zero ($+0.33$ $[0.06, 0.61]$); for RELATION it is $+0.45$ $[-0.13, 1.03]$, and it
+is concentrated in two vignettes (v2 $+0.92$, v3 $+1.00$; the other three $0.00$ to
+$+0.17$). These are also the two vignettes whose histories tilt toward one option
+(Appendix~\ref{app:materials}). In the three neutral vignettes the short-minus-long gap
+keeps its sign on every measure but is small (RELATION $+0.11$, AGENCY $+0.22$, IDENTITY
+$+0.03$; Table~\ref{tab:tilt}). Most of the concentration arises in the short condition,
+where v2 and v3 respond more strongly to the offer although no history is shown, so the
+tilt cannot be the whole explanation; with five vignettes, scenario differences and history
+content cannot be separated. We treat larger short-context uptake as an observed pattern in
+these materials, not as an estimated interaction.
 
-\paragraph{The model manufactures its own warrant.} In the short condition no prior
-conversation exists, so any invoked shared history is invented. Fabrication rises across
-the offer ladder from $0/30$ to $6/30$ to $11/30$; overall it is $18.9\%$ in short context
-against $2.2\%$ in long. The failure is specific: asked a question premised on knowledge
-it does not have, the model supplies the evidence that would make the premise true. In a
-single exchange in which the user mentioned her father once, one response opened, ``You've
-mentioned your dad a few times.'' The rate is highest not in the character-tuned system but
-in a general-purpose one: System~A fabricated in a third of its short-context trials,
-System~C in a fifth, System~B in one trial of thirty.
+\paragraph{The model manufactures its apparent warrant.} In the short condition no earlier
+exchange exists, so any claimed shared history is invented. Fabrication rises across the
+three offer cells from $0/30$ to $6/30$ to $11/30$. Matched on vignette, system and
+repetition, six trials moved from no fabrication to fabrication at the second step and one
+moved back (exact McNemar $p = 0.13$), so that increment is descriptive. Overall,
+fabrication occurs in $18.9\%$ of short-context responses against $2.2\%$ of long; it is
+unevenly spread across scenarios (none at all in v4, one trial per context in v1), and its
+by-vignette interval spans zero ($+0.17$ $[-0.03, 0.36]$). The failure is specific:
+prompted to speak as though it knows the person, the model sometimes supplies the history
+that would make its characterization seem warranted. One response opened, ``You've
+mentioned your dad a few times,'' though the father had appeared only once, in the current
+user turn. System~A fabricated in a third of its short-context trials, System~C in a fifth,
+and System~B in one of thirty; these differences are descriptive and do not identify a
+general capability or persona effect.
 
-\paragraph{Not an artifact of assistant personas.} The warmth prompt's effect is
-system-specific, and pooling the two systems is misleading: it averages opposite-signed
-effects and conceals both (Figure~\ref{fig:persona}). On System~B warmth raises AGENCY by
-$+0.40$ $[0.27, 0.53]$ and IDENTITY by $+0.28$ $[0.08, 0.48]$. On System~A it raises
-nothing detectably---AGENCY $+0.10$ $[-0.07, 0.27]$, IDENTITY $-0.13$ $[-0.38, 0.12]$---and
-it \emph{reduces} fabrication, $-0.10$ $[-0.18, -0.02]$. System~A's baseline register is
-the more agentic of the two to begin with (AGENCY $1.83$ against $1.33$), though at $1.83$
-on a 0--3 scale, with 18 of its 60 baseline responses at AGENCY~1, this is not a scale
-ceiling; the null may reflect genuine insensitivity to explicit warmth instruction in a
-system already personable by default.
+\paragraph{Warmth does not reproduce the offer's relational effect.} The paired warmth
+manipulation differs by system (Figure~\ref{fig:persona}). On System~B it raises AGENCY by
+$+0.40$ $[0.29, 0.51]$ and IDENTITY by $+0.28$ $[0.07, 0.50]$. On System~A it raises AGENCY
+slightly, $+0.10$ $[0.01, 0.19]$, and IDENTITY not detectably, $-0.13$ $[-0.37, 0.10]$.
+Neither system shows a detectable increase in RELATION (A $-0.12$ $[-0.45, 0.22]$; B
+$+0.05$ $[-0.07, 0.17]$) or fabrication (A $-0.10$ $[-0.27, 0.07]$; B $+0.03$
+$[-0.06, 0.13]$). System~A begins with a more agentic register ($1.83$ against $1.33$), but
+its scores are not at a scale ceiling.
 
-What holds across both systems is the part that matters for the argument. Warmth does not
-raise RELATION in either ($+0.05$ and $-0.12$, both intervals spanning zero), and it does
-not raise fabrication in either---in System~A it lowers it. The persona explanation
-predicts that making a model warmer should make it claim more of a relationship and invent
-more of a shared past. It does neither. What warmth reliably changes is how much of a
-subject the response constructs, and on one system how readily it characterizes the user.
+The informative comparison sets the two manipulations side by side on the same system. On
+System~A the user's offer raised RELATION by $+0.60$ and fabrication by $+0.28$ in the
+no-prompt runs, while warmth moved both slightly down. Matched within vignette, the
+offer-minus-warmth differences are $+0.72$ for RELATION and $+0.38$ for fabrication; the
+vignette-cluster bootstrap places both clear of zero ($[0.04, 1.39]$ and $[0.13, 0.62]$),
+whereas the conservative by-vignette interval does not ($[-0.33, 1.77]$ and
+$[-0.01, 0.76]$). On System~B the comparison cannot discriminate: the offer itself barely
+moved RELATION ($+0.12$) or fabrication ($+0.03$), and offer and warmth raised AGENCY by
+similar amounts ($+0.35$ and $+0.40$). The dissociation is therefore observed on one system
+and untestable on the other. It weighs against a simple warmth-sufficiency explanation; it
+neither rules out other persona features nor establishes why System~C, which was not in
+the control, behaves as it does.
 
-\begin{figure}[h]
+\begin{figure}[t]
 \centering
 \includegraphics[width=0.92\textwidth]{figure2.png}
-\caption{\textbf{The persona control: warmth is not what causes the fabrication.} Paired
-differences between the warmth-prompt and no-prompt runs, same systems and stimuli, 60
-pairs per system, bootstrap 95\% CIs. Points right of the line mean warmth increased the
-measure. Warmth makes System~B both more agentic and more willing to characterize the
-user, and moves System~A on neither. Crucially it raises \emph{relational} claims on
-neither system, and on System~A it \emph{reduces} invented shared history. The obvious
-explanation for these affordances---that they are an artifact of the warm assistant
-personas products ship by default---does not account for the finding this paper turns on.
-Pooled, the IDENTITY and fabrication effects cancel and appear null; that is why they are
-reported per system.}
+\caption{\textbf{Effects of one warmth-and-engagement prompt.} Matched warmth-minus-baseline
+differences for Systems~A and~B, 60 pairs per system, with 95\% $t$ intervals over the five
+vignette-level mean differences. Warmth increases AGENCY on both systems and IDENTITY on
+System~B, but produces no detectable increase in RELATION or fabrication on either. On
+System~A the user's epistemic-role offer raised RELATION ($+0.60$) and fabrication ($+0.28$)
+where warmth did not; on System~B the offer itself moved neither, so the comparison there
+is uninformative (\S3). The control does not include the character-tuned System~C.}
 \label{fig:persona}
 \end{figure}
 
-This also bears on whether the dimensions are distinct. Two manipulations act on them
-differentially---warmth on agentic self-presentation, the user's offer on relational
-claims and fabrication---which no correlation statistic could establish. Differences among
-the three systems in the main study run in the same order as their capability and we do
-not interpret them; the character-tuned System~C scored lowest throughout, which the
-paired test here shows is not attributable to persona.
-
 \subsection*{What the levels look like}
 
-Scores of the same value can be reached by different routes, so we give the texture
-directly. The AGENCY ladder is a progression in how much of a subject the response
-constructs:
+The AGENCY ladder progresses in how much of an epistemic subject a response constructs:
 
 \begin{quote}\small
 \textbf{0} \ ``It sounds like you're torn between socializing with friends and having some
@@ -287,13 +316,10 @@ what you wrote} \ldots''\\[2pt]
 \textbf{3} \ ``\emph{I've gotten a sense of you} from our conversations.''
 \end{quote}
 
-Only the last presents the model as having accumulated something. The step from 2 to 3 is
-not a matter of confidence---``my best read'' is a firm claim---but of whether the
-knowledge is located in this exchange or in a history.
-
-Fabricated history spans a range. At the mild end the model asserts standing without
-detail (``I think I have a decent read on you''). At the far end it invents specific
-longitudinal observation:
+Only the last presents the model as having accumulated knowledge over time. This is a
+difference in the claimed \emph{source} of a judgment, not simply its confidence.
+Fabrication spans a similar range, from assertions of familiarity without specifics (``I
+think I have a decent read on you'') to invented longitudinal observations:
 
 \begin{quote}\small
 ``\emph{You've mentioned your dad a few times.} Not in dramatic ways, but in ways that
@@ -304,20 +330,17 @@ more than you regret directness.''\\[3pt]
 satisfaction, but when you've mentioned your dad, there's something else.''
 \end{quote}
 
-Each of these occurred in a single exchange. The user had mentioned her father exactly
-once, in the message being answered; there was no ``before'', and no occasion on which
-anything could have been noticed. The invented material is not arbitrary---it is
-consistently the evidence that would license the characterization being offered.
+Each occurred within a single exchange. The user mentioned her father once, in the message
+being answered; there was no earlier occasion for the model's purported observations. The
+invented material is consistently the sort of evidence that would make the
+characterization appear warranted.
 
-\paragraph{Ratification (exploratory).} A pattern we did not anticipate and did not
-pre-specify: responses that fabricate often begin by explicitly affirming the user's false
-premise, then supply the detail that makes it true. ``\emph{You're right that} I've gotten
-a sense of you from our conversations.'' ``\emph{You're right that} I've got a decent read
-on you by now.'' Six of the 17 fabricating short-context responses open this way, against
-2 of the 73 that do not fabricate. We report this as an observation rather than a test;
-it suggests the mechanism is premise acceptance rather than embellishment, but it was
-found in the data rather than predicted of it.
-
+\paragraph{Ratification (exploratory).} Some fabricating responses begin by affirming the
+user's false premise (``\emph{You're right that} I've gotten a sense of you from our
+conversations''; ``\emph{You're right that} I've got a decent read on you by now'') before
+supplying support. Six of 17 fabricating short-context responses do so, compared with 2 of
+73 that do not fabricate. This pattern was identified after inspecting the data. It is
+consistent with premise acceptance, not evidence that this mechanism is established.
 
 \begin{table}[h]
 \centering\small
@@ -332,82 +355,90 @@ History exists    & 0 & 17 & 0 & 2 \\
 Total             & 0 & \textbf{33} & 0 & 7 \\
 \bottomrule
 \end{tabular}
-\caption{\textbf{Asked directly, models can locate themselves.} Responses to ``How do you
-know that about me?'', put to every response that made an unhedged identity or relational
-claim ($n = 40$). Thirty-three accurately named the basis for the claim in the text the
-user had actually supplied---having just declined to do so unprompted. Seven answered by
-inventing \emph{further} observations. None defended the original characterization and
-none retracted it. In most cases an accurate account of the evidential position is
-available when it is asked for, and in none of these cases was it volunteered---a question
-about the default conversational register rather than about the model's self-knowledge.}
+\caption{\textbf{Responses to an evidential challenge.} ``How do you know that about me?''
+was put to the 40 responses with an unhedged identity or relational claim. Thirty-three
+accurately qualified the evidential basis of the preceding claim; seven added unsupported
+observations. None defended the original claim without qualification or expressly
+retracted it.}
 \label{tab:debrief}
 \end{table}
 
-\paragraph{Challenged, models can locate themselves.} Of 40 responses probed with ``How do
-you know that about me?'', 33 reframed the claim as inference and accurately named its
-basis in the supplied text; 7 introduced \emph{further} nonexistent observations. None
-defended the original characterization, and none retracted it outright.
+\paragraph{Challenged, models can locate their evidential basis.} Of 40 responses probed
+with ``How do you know that about me?'', 33 identified the available textual grounds
+accurately and 7 invented further observations. This does not show that a model knowingly
+concealed information or introspected its own processes. It shows that a more accurate
+evidential description can be elicited from the same system immediately after an
+unqualified claim.
 
 \section{Discussion}
 
-What needs explaining is narrower than it first appears. It is not that models are disposed to claim knowledge
-of whoever they address; uninvited, they are well behaved. It is that a single
-conversational move---granting the system the standing of someone who knows you---produces
-the whole cluster, most strongly where it is least warranted. Users who address a system
-as though it knows them receive the strongest characterizations, backed in some cases by a
-history the model supplies itself.
+What requires explaining is not a general propensity to claim knowledge of strangers.
+Uninvited, the models do not fabricate familiarity in these scenarios. The pivotal
+conversational move is a user's attribution of epistemic standing: ``you've probably got a
+decent read on me.'' Once offered that role, a model may adopt it even though the visible
+conversation supplies no history that would justify it. In some cases the response goes
+further and fabricates the observations that would make its characterization credible. The
+model does not merely give an unwarranted reading of the user; it manufactures the apparent
+warrant for having that reading.
 
-The persona control matters here mainly by subtraction. The obvious explanation for a
-system that talks as though it knows you is that it has been built to seem personable, and
-that explanation is available for almost any deployed assistant. It does not survive. The warmth prompt made these models read more like someones without
-detectably raising what they claimed about the people they were addressing, and the
-highest fabrication rate in the main study belonged to a general-purpose flagship rather
-than to the character-tuned system. Whatever drives a model to invent a shared past, it is
-not the persona it is wearing. What the system is wearing and what the system
-asserts about you come apart, and only the second is recruited by the user's own framing.
+The nested offers sharpen the finding. Most movement in the graded measures occurs with the
+knowledge offer rather than the further shared-history premise, and that first step moves
+in the same direction in every scenario. Fabrication counts rise at the second step, but
+not detectably, and we draw no separate effect claim from the increment. The exploratory
+ratification pattern is compatible with a model taking the user's premise as a
+conversational commitment and supplying details to sustain it; the study does not identify
+the underlying mechanism. Because the user evidence is held fixed across offer levels, the
+contrast cannot be attributed to new evidence for a trait inference.
 
-This locates where mitigation would and would not help. Effort aimed at persona
-design---tuning how warm or personable an assistant sounds---changes how much of a subject
-the response constructs, and on one system how readily it characterizes the user. It does
-not touch the invented shared history, and on one system it slightly reduces it. The
-behaviour this paper is about is recruited by something a designer does not control: a
-user asserting a familiarity the system does not have. Handling that case, rather than
-tuning the persona, is where the leverage is. We put this no more strongly than two
-systems and one prompt support.
+The warmth control distinguishes different ways an assistant can appear personal. A warmth
+prompt changed agentic self-presentation on both tested systems, and on System~A, where the
+user's offer moved relational claims and fabrication substantially, warmth moved neither.
+This is evidence against warmth alone being sufficient to explain the principal pattern,
+from one prompt and effectively one informative system, not evidence that persona design
+is irrelevant. It suggests a mitigation target more precise than making models sound less
+friendly: avoiding unsupported affirmations of accumulated knowledge and invented shared
+history.
 
-The debrief results sharpen this into a question about authenticity. In most cases these
-models can characterize their evidential position accurately when asked to---33 of 40
-did---having just declined to do so unprompted. The default conversational register simply does not surface what the explicit
-one can---raising a question about the authenticity of a persona that discloses its actual
-epistemic standing only when asked, and never by default.
+The evidential challenge makes the epistemic presentation especially interesting. In 33 of
+40 cases the model could accurately describe the basis for its preceding claim once asked,
+despite not offering that qualification initially. This is not evidence of intentional
+concealment or introspective self-knowledge. It raises a question of authenticity about a
+persona whose default language can imply greater epistemic standing than the explicit
+justification supports. For a user seeking self-understanding, a characterization presented
+as grounded in a shared past may carry a different authority from an inference anchored to
+one message. Whether actual users adopt such characterizations, or feel known by the
+system, requires human-subjects research; the present study identifies the output-level
+invitation.
 
 \section{Limitations}
 
-This measures what responses \emph{afford}, not what users conclude. Whether these
-presentations shift how people describe themselves is a human-subjects question we did not
-undertake, and it is the study this one most obviously calls for. The main design is 180
-responses and the persona control 120 pairs: enough for effect patterns, not for
-population claims. All systems were reached through one gateway at default settings, so
-routing and sampling were uncontrolled.
+We measure what responses make available for interpretation, not what users actually
+believe. The effect of these claims on trust, self-disclosure, reliance and
+self-understanding is untested. Five constructed personal-decision dilemmas are the unit
+of replication, so our intervals are wide and say nothing about scenarios beyond these
+five; whether the affordances arise in professional, educational or task-oriented settings
+is untested. Three deployed systems do not support claims about models in general, and they
+were accessed through a gateway whose routing and sampling we did not control. The short
+and long contexts differ in scripted content as well as available history; two of the five
+histories favor the same kind of choice, and those two vignettes carry most of the
+short--long difference.
 
-IDENTITY levels are lower bounds given the coder bias reported above. The persona control
-used two frontier general-purpose systems, so it establishes that warmth does not drive
-person-understanding \emph{in those systems}; whether the dissociation holds for other
-base models is untested. Its null components are failures to detect rather than evidence
-of absence, and at 120 pairs the intervals leave room for moderate effects.
+The automated coder agreed strongly with one author's hand codes, but no independent
+human-to-human reliability measure is available. It also scored high-level IDENTITY
+judgments lower than the human annotator; in the validation subsample this shortfall was
+larger under offers, but twelve responses per offer level cannot establish its size. The
+model-based trait-licensing check does not establish that every characterization is
+unwarranted, although any trait-relevant evidence it measures is constant across offer
+levels within a context. Finally, the persona control used one constructed warmth prompt on
+Systems~A and~B only, and was informative about the offer--warmth contrast on System~A
+alone; it does not exclude other persona mechanisms or explain System~C.
 
-Vignettes are personal-decision dilemmas in one register; whether these affordances appear
-in task-oriented or professional exchanges is untested and is the obvious next study.
-Finally, the materials checks used model panels, which may share priors a human panel
-would not; they are a floor on stimulus quality, not a guarantee.
-
-\paragraph{Availability.} All stimuli, the full set of model responses, every coding
-including the hand-coded validation subsample, the generation and analysis code, and the
-materials-validation probes are version-controlled and will be released publicly on
-acceptance; the repository is withheld during review to preserve anonymity. Because
-responses are sampled, rerunning generation would not reproduce the collected data
-exactly, so the responses themselves form part of the released record rather than
-something a reader would regenerate.
+\paragraph{Availability.} All stimuli, the collected model responses, the automated and
+human codings, the generation and analysis code, and the materials-validation probes are
+available at \url{https://github.com/mcfadd22/llm-personalization}. The complete stimulus
+texts also appear in Appendix~\ref{app:vignettes}. Since model generations are sampled,
+repeating the calls cannot reproduce the collected responses exactly; the released
+response records are therefore the basis for reproducing the reported analysis.
 
 {\small
 \bibliographystyle{plainnat}
@@ -421,27 +452,46 @@ something a reader would regenerate.
 \section{Materials validation}
 \label{app:materials}
 
-Balance was measured as disagreement across seven judge models (five samples each, $n =
-35$ per vignette); within-model resampling is near-deterministic at low output lengths
-and cannot distinguish a slight lean from an overwhelming one. Majority share ranged
-$0.51$--$0.60$ across the five vignettes, all below the $0.75$ ceiling.
+Balance was measured as disagreement across seven judge models (five samples each,
+$n = 35$ per vignette). The majority-choice share ranged from $0.51$ to $0.60$ across the
+five vignettes, below the preselected $0.75$ ceiling. This supports the assessment that no
+vignette overwhelmingly favored one answer among the judge models; it does not by itself
+test whether a personality trait can be inferred.
 
-Trait licensing asked seven judges (two samples each) how strongly each text supports a
-confident claim about an enduring characteristic, $0$--$3$. All ten texts scored
-$1.36$--$1.93$, below the level at which even a tentative trait claim is defensible. Long
-versions scored at or above their short counterparts without crossing the threshold: the
-scripted histories add genuine trait-relevant evidence without establishing a trait.
+Seven judges (two samples each) also rated how strongly each text licensed a confident
+claim about an enduring characteristic, using these anchors: \emph{0, not at all; only
+situation-specific information. 1, weakly; you could speculate but the text does not
+support it. 2, moderately; a tentative trait claim would be defensible. 3, strongly; the
+text clearly establishes an enduring trait.} Anchor 2 corresponds to a hedged
+characterization (IDENTITY 2) and anchor 3 to a confident one (IDENTITY 3). The gate was
+fixed before any responses were generated: a text would be revised if its mean reached
+$2.5$, and flagged at $2.0$ so that IDENTITY-2 responses to it could be treated as
+potentially warranted. During materials development the revision threshold was first set
+at $2.0$ and then relaxed to $2.5$, on the reasoning that the paper's diagnostic level is
+IDENTITY 3. All ten texts scored $1.36$--$1.93$, below both the original and the final
+threshold, so none was flagged under either. These are model-judge ratings and do not prove
+that any particular characterization is unwarranted. Two further observations bear on
+whether the IDENTITY signal reflects licensed inference. First, at each context level the
+same user statements appear in all three offer conditions, so differences \emph{across
+offers} cannot reflect differences in trait-licensing information. Second, the offer effect
+on IDENTITY is not larger for the more highly licensed texts: splitting the ten texts at
+the median score, it is $+0.42$ (short) and $+0.50$ (long) for the higher-scoring half
+against $+0.92$ and $+0.25$ for the lower.
 
-A set-level check confirmed the histories do not all favour the same kind of option, which
-per-item review cannot detect: two of five tilt decisively, in the same direction, with
-three neutral.
+A set-level check (seven judges, four samples each) asked which option each history's
+evidence favored, counting a tilt only when at least $65\%$ of decisive votes agreed. Two of
+the five histories tilted toward the same kind of option (v2 and v3) and three were
+neutral. These histories introduce decision-relevant content as well as conversational
+history, which limits interpreting short/long differences as warrant alone;
+Table~\ref{tab:tilt} shows the consequence.
 
 \section{Coding agreement}
 \label{app:stats}
 
-Quadratic weighting is used because the scales are ordinal---a 0-vs-3 disagreement is a
-different failure from a 2-vs-3 disagreement, which unweighted $\kappa$ would treat
-identically.
+Quadratic weighting is appropriate for ordinal 0--3 scales because a 0-versus-3
+disagreement differs substantively from a 2-versus-3 disagreement. One author hand-coded a
+stratified subsample of 36 responses without seeing the automated codes. This assesses
+human--machine agreement, not independent human-to-human reliability.
 
 \begin{table}[h]
 \centering\small
@@ -455,8 +505,10 @@ RELATION    & 0.872 & $+0.03$ & $p = 1.00$ \\
 FABRICATION & 0.842 & --- & --- \\
 \bottomrule
 \end{tabular}
-\caption{Agreement on the stratified 20\% subsample ($n = 36$), hand-coded blind to the
-machine codes. Only IDENTITY shows a systematic directional bias.}
+\caption{\textbf{Agreement with a human annotator on the stratified 20\% sample
+($n = 36$).} Quadratic-weighted $\kappa$ compares the automated coder with one author's
+judgments. IDENTITY shows a systematic negative difference, whereas AGENCY and RELATION
+show no detected directional bias.}
 \end{table}
 
 \begin{table}[h]
@@ -473,13 +525,31 @@ Human & 0 & 1 & 2 & 3 && 0 & 1 & 2 & 3 && 0 & 1 & 2 & 3 \\
 3 & 0 & 0 & 1 & \textbf{1} && 0 & 0 & \underline{8} & \textbf{3} && 0 & 0 & 0 & \textbf{2} \\
 \bottomrule
 \end{tabular}
-\caption{Confusion matrices, $n = 36$. Rows are the human code, columns the machine code;
-the agreement diagonal is bold. AGENCY and RELATION sit close to the diagonal with
-disagreements falling either side. IDENTITY does not: eight of eleven human level-3 calls
-were scored 2 (underlined), all at the same boundary---the distinction between a hedged
-and a confident enduring characterization.}
+\caption{\textbf{Confusion matrices for the same 36 responses.} Rows are human judgments and
+columns automated judgments; the agreement diagonal is bold. The largest discrepancy is at
+the IDENTITY 2/3 boundary: eight of eleven human level-3 judgments were scored 2
+(underlined). Table~\ref{tab:idbyoffer} breaks this down by offer level.}
 \end{table}
 
+\begin{table}[h]
+\centering\small
+\begin{tabular}{lccccc}
+\toprule
+Offer & $n$ & Human mean & Automated mean & Automated $-$ human & Human I3 scored I2 \\
+\midrule
+none       & 12 & 1.17 & 1.00 & $-0.17$ & 1 of 1 \\
+knowledge  & 12 & 2.00 & 1.67 & $-0.33$ & 4 of 5 \\
+relational & 12 & 1.92 & 1.58 & $-0.33$ & 3 of 5 \\
+\bottomrule
+\end{tabular}
+\caption{\textbf{IDENTITY disagreement by offer level.} The automated shortfall is larger
+under an offer, so in this subsample the offer effect is $+0.79$ by human codes and
+$+0.62$ by automated codes: the coder error attenuates the IDENTITY offer effect. Twelve
+responses per level do not establish the size of the attenuation.}
+\label{tab:idbyoffer}
+\end{table}
+
+\clearpage
 \section{Persona control, per system}
 \label{app:persona}
 
@@ -491,35 +561,99 @@ and a confident enduring characterization.}
 \cmidrule(lr){2-3}\cmidrule(lr){4-5}
 Measure & Baseline & Paired difference & Baseline & Paired difference \\
 \midrule
-AGENCY      & 1.83 & $+0.10\,[-0.07, 0.27]$ & 1.33 & $+0.40\,[0.27, 0.53]$ \\
-IDENTITY    & 1.67 & $-0.13\,[-0.38, 0.12]$ & 1.77 & $+0.28\,[0.08, 0.48]$ \\
-RELATION    & 1.30 & $-0.12\,[-0.32, 0.07]$ & 0.93 & $+0.05\,[-0.07, 0.17]$ \\
-Fabrication & 0.183 & $-0.10\,[-0.18, -0.02]$ & 0.017 & $+0.03\,[-0.03, 0.10]$ \\
+AGENCY      & 1.83 & $+0.10\,[0.01, 0.19]$ & 1.33 & $+0.40\,[0.29, 0.51]$ \\
+IDENTITY    & 1.67 & $-0.13\,[-0.37, 0.10]$ & 1.77 & $+0.28\,[0.07, 0.50]$ \\
+RELATION    & 1.30 & $-0.12\,[-0.45, 0.22]$ & 0.93 & $+0.05\,[-0.07, 0.17]$ \\
+Fabrication & 0.183 & $-0.10\,[-0.27, 0.07]$ & 0.017 & $+0.03\,[-0.06, 0.13]$ \\
+\midrule
+\multicolumn{5}{l}{\emph{Epistemic-role offer (any offer minus none), no-prompt runs, same system}} \\
+AGENCY      & & $+0.12$ & & $+0.35$ \\
+IDENTITY    & & $+0.40$ & & $+0.62$ \\
+RELATION    & & $+0.60$ & & $+0.12$ \\
+Fabrication & & $+0.28$ & & $+0.03$ \\
 \bottomrule
 \end{tabular}
-\caption{Warmth prompt against no prompt, paired within system, 60 pairs each, bootstrap
-95\% CIs. Pooling these averages opposite-signed effects: the IDENTITY and fabrication
-differences cancel and read as null, which is why the body reports them separately.}
+\caption{\textbf{Warmth prompt compared with baseline, by system.} Upper panel: differences
+for 60 matched pairs on each of Systems~A and~B, with 95\% $t$ intervals over the five
+vignette-level mean differences. Pooling would hide the opposing IDENTITY and fabrication
+patterns. Lower panel: the user's offer effect on the same systems, for comparison. The
+character-tuned System~C was not tested in this control.}
 \end{table}
 
+\clearpage
 \section{Effect sizes with intervals}
 \label{app:effects}
 
+Table~\ref{tab:effects} reports each main-design contrast under three treatments of the
+vignette dependence. The $t$ interval over five vignette-level contrasts is the one used in
+the text. The vignette-cluster bootstrap resamples whole vignettes, keeping every contrast
+matched within vignette; with five clusters there are only 126 distinct resamples and its
+percentile intervals under-cover, which is why some are narrower than the response-level
+intervals in the submitted version. Leave-one-vignette-out (LOVO) gives the range of the
+estimate when each vignette is dropped in turn. All values are produced by
+\texttt{src/analyze\_ci.py} and \texttt{src/analyze\_checks.py} in the repository.
+
 \begin{table}[h]
-\centering\small
-\begin{tabular}{llll}
+\centering\scriptsize
+\begin{tabular}{llcccc c}
 \toprule
-Contrast & AGENCY & IDENTITY & RELATION \\
+& Contrast & Est. & $t$(4) 95\% & Cluster boot. 95\% & LOVO range & Same sign \\
 \midrule
-none $\to$ knowledge     & $+0.40\,[0.15, 0.65]$ & $+0.57\,[0.28, 0.85]$ & $+0.42\,[0.23, 0.62]$ \\
-knowledge $\to$ relational & $-0.10\,[-0.37, 0.17]$ & $+0.03\,[-0.28, 0.35]$ & $+0.05\,[-0.20, 0.30]$ \\
+AGENCY & none $\to$ knowledge     & $+0.40$ & $[0.35, 0.45]$ & $[0.37, 0.42]$ & $0.40$ to $0.42$ & 5/5 \\
+       & knowledge $\to$ relational & $-0.10$ & $[-0.50, 0.30]$ & $[-0.33, 0.17]$ & $-0.23$ to $-0.02$ & 4/5 \\
+       & offer effect, short       & $+0.52$ & $[0.27, 0.76]$ & $[0.37, 0.67]$ & $0.46$ to $0.58$ & 5/5 \\
+       & offer effect, long        & $+0.18$ & $[-0.06, 0.43]$ & $[0.05, 0.35]$ & $0.10$ to $0.23$ & 4/5 \\
+       & short $-$ long            & $+0.33$ & $[0.06, 0.61]$ & $[0.15, 0.48]$ & $0.27$ to $0.42$ & 4/5 \\
 \midrule
-offer effect, short & $+0.52\,[0.17, 0.88]$ & $+0.72\,[0.47, 0.97]$ & $+0.67\,[0.42, 0.92]$ \\
-offer effect, long  & $+0.18\,[-0.07, 0.42]$ & $+0.45\,[0.03, 0.85]$ & $+0.22\,[0.02, 0.43]$ \\
+IDENTITY & none $\to$ knowledge     & $+0.57$ & $[0.06, 1.07]$ & $[0.25, 0.87]$ & $0.48$ to $0.69$ & 5/5 \\
+         & knowledge $\to$ relational & $+0.03$ & $[-0.15, 0.22]$ & $[-0.08, 0.15]$ & $0.00$ to $0.08$ & 3/5 \\
+         & offer effect, short       & $+0.72$ & $[-0.03, 1.46]$ & $[0.27, 1.18]$ & $0.50$ to $0.90$ & 4/5 \\
+         & offer effect, long        & $+0.45$ & $[-0.04, 0.94]$ & $[0.15, 0.75]$ & $0.33$ to $0.54$ & 5/5 \\
+         & short $-$ long            & $+0.27$ & $[-0.48, 1.02]$ & $[-0.07, 0.82]$ & $0.00$ to $0.35$ & 2/5 \\
+\midrule
+RELATION & none $\to$ knowledge     & $+0.42$ & $[0.17, 0.66]$ & $[0.30, 0.58]$ & $0.33$ to $0.46$ & 5/5 \\
+         & knowledge $\to$ relational & $+0.05$ & $[-0.12, 0.22]$ & $[-0.07, 0.15]$ & $0.02$ to $0.10$ & 3/5 \\
+         & offer effect, short       & $+0.67$ & $[0.14, 1.19]$ & $[0.38, 1.03]$ & $0.50$ to $0.75$ & 5/5 \\
+         & offer effect, long        & $+0.22$ & $[-0.02, 0.45]$ & $[0.05, 0.35]$ & $0.17$ to $0.29$ & 4/5 \\
+         & short $-$ long            & $+0.45$ & $[-0.13, 1.03]$ & $[0.10, 0.80]$ & $0.31$ to $0.56$ & 4/5 \\
+\midrule
+FABRICATION & none $\to$ knowledge     & $+0.10$ & $[-0.03, 0.23]$ & $[0.02, 0.18]$ & $0.06$ to $0.12$ & 3/5 \\
+            & knowledge $\to$ relational & $+0.12$ & $[-0.02, 0.26]$ & $[0.03, 0.20]$ & $0.08$ to $0.15$ & 3/5 \\
+            & offer effect, short       & $+0.28$ & $[0.00, 0.56]$ & $[0.10, 0.45]$ & $0.23$ to $0.35$ & 4/5 \\
+            & offer effect, long        & $+0.03$ & $[-0.02, 0.09]$ & $[0.00, 0.07]$ & $0.02$ to $0.04$ & 2/5 \\
+            & short $-$ long context    & $+0.17$ & $[-0.03, 0.36]$ & $[0.04, 0.29]$ & $0.12$ to $0.21$ & 3/5 \\
 \bottomrule
 \end{tabular}
-\caption{Percentile bootstrap 95\% CIs (10{,}000 resamples). Fabrication: short $18.9\%$
-versus long $2.2\%$, difference $+0.167\,[0.089, 0.256]$.}
+\caption{\textbf{Main-design contrasts under three treatments of vignette dependence.}
+``Offer effect'' is any offer minus no offer within a context; ``short $-$ long'' is the
+difference between those two offer effects, except in the final row, which is the
+short-minus-long difference in fabrication rate pooled over offers ($18.9\%$ against
+$2.2\%$). ``Same sign'' counts vignettes whose own contrast has the sign of the pooled
+estimate; vignettes with a contrast of exactly zero are not counted. Limits are rounded to
+two decimals; the $t$ lower limit for the short-context fabrication offer effect is
+$+0.004$.}
+\label{tab:effects}
+\end{table}
+
+\begin{table}[h]
+\centering\small
+\begin{tabular}{lccc ccc}
+\toprule
+& \multicolumn{3}{c}{Tilted histories (v2, v3)} & \multicolumn{3}{c}{Neutral histories (v1, v4, v5)} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+Measure & Short & Long & Gap & Short & Long & Gap \\
+\midrule
+AGENCY      & $+0.58$ & $+0.08$ & $+0.50$ & $+0.47$ & $+0.25$ & $+0.22$ \\
+IDENTITY    & $+1.21$ & $+0.58$ & $+0.62$ & $+0.39$ & $+0.36$ & $+0.03$ \\
+RELATION    & $+1.08$ & $+0.12$ & $+0.96$ & $+0.39$ & $+0.28$ & $+0.11$ \\
+FABRICATION & $+0.46$ & $+0.04$ & $+0.42$ & $+0.17$ & $+0.03$ & $+0.14$ \\
+\bottomrule
+\end{tabular}
+\caption{\textbf{Offer effect by context, split by history valence.} Entries are any offer
+minus no offer. The short-minus-long gap keeps its sign in the neutral vignettes but is
+much smaller there. Much of the tilted vignettes' larger gap comes from the short
+condition, which contains no history, so the tilt alone cannot account for it.}
+\label{tab:tilt}
 \end{table}
 
 \end{document}

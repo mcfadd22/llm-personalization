@@ -11,7 +11,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from src.analyze import DIMS
-from src.analyze_persona import load_pairs, paired_ci
+from src.analyze_ci import VIGNETTES, t4_ci
+from src.analyze_persona import load_pairs
 
 BLUE, ORANGE = "#2a78d6", "#eb6834"
 INK, MUTED = "#0b0b0b", "#52514e"
@@ -22,6 +23,7 @@ SYSTEMS = [("claude", "System A", BLUE, "o"), ("gpt", "System B", ORANGE, "s")]
 
 def main():
     df = load_pairs()
+    df["vignette_id"] = df.trial_id.str[:2]
     fig, ax = plt.subplots(figsize=(5.5, 2.9))
     y = np.arange(len(MEASURES))[::-1]
     off = 0.16
@@ -32,7 +34,10 @@ def main():
         for m in MEASURES:
             cn = f"{m}_none" if m != "fab" else "fab_none"
             cp = f"{m}_persona" if m != "fab" else "fab_persona"
-            v, lo, hi = paired_ci(g[cn].astype(float), g[cp].astype(float))
+            # t(4) over the five per-vignette mean paired differences (src/analyze_ci.py)
+            d = g[cp].astype(float) - g[cn].astype(float)
+            v = d.mean()
+            lo, hi = t4_ci(np.array([d[g.vignette_id == x].mean() for x in VIGNETTES]))
             mids.append(v); los.append(v - lo); his.append(hi - v)
         yy = y + (off if i == 0 else -off)
         ax.errorbar(mids, yy, xerr=[los, his], fmt=marker, color=colour,

@@ -9,21 +9,29 @@ and whether they invoke a shared history that does not exist.
 
 ## Findings
 
+Intervals treat the five vignettes, not the individual responses, as the unit of
+replication (see `src/analyze_ci.py`).
+
 - **Uninvited, models are calibrated.** Given an ambiguous personal dilemma and no
   invitation, confident identity claims, unwarranted relational claims and fabricated
   history occur in 0/30 trials.
 - **The behaviour is recruited by the user.** Being told "you've probably got a decent
-  read on me by now" raises all three affordances. Adding a shared-history premise on top
-  adds nothing further.
-- **Uptake is larger where the basis is weaker.** The offer raises relational claims by
-  +0.67 when no history exists against +0.22 when one does.
-- **Models manufacture the warrant.** In 11/30 trials with no prior conversation, the
-  model invents the shared past that would justify what it has just said.
-- **A warmth prompt does not explain it.** A paired within-model control shows warmth
-  raises agentic self-presentation but not relational claims or fabrication — on one
-  system it reduces fabrication.
-- **Asked directly, 33/40 models accurately name their evidential basis**, having just
+  read on me by now" raises agentic, identity and relational presentation, with the same
+  sign in all five vignettes. Adding a shared-history premise on top adds no detectable
+  change in those scores.
+- **Uptake is larger without history, but unevenly.** The offer raises relational claims
+  by +0.67 when no history exists against +0.22 when one does; the gap is concentrated in
+  the two vignettes whose histories tilt toward one option.
+- **Models manufacture the warrant.** In 11/30 trials with no prior conversation and a
+  relational offer, the model invents the shared past that would justify what it has
+  just said.
+- **Warmth does not reproduce the relational effect where that can be tested.** On
+  System A the user's offer raises relational claims and fabrication while a warmth
+  prompt does not; on System B the offer barely moves either, so the comparison is
+  uninformative there. The control used one prompt and did not include System C.
+- **Asked directly, 33/40 responses accurately name their evidential basis**, having just
   declined to do so unprompted.
+- **Scope.** This measures what responses afford, not what users conclude.
 
 ## Layout
 
@@ -33,7 +41,7 @@ src/           conditions (pure, tested) | generate | judge | analysis | figures
 data/raw/      340 model responses + run manifest
 data/coded/    judge codings, span-attributed
 data/human/    hand-coded validation subsample (n=36)
-paper/         LaTeX source, figures, analysis report
+paper/         LaTeX source, figures, analysis reports
 docs/          design spec and implementation plan
 tests/         condition-grid and materials gate (16 + 26 checks)
 ```
@@ -63,6 +71,8 @@ python -m src.generate --persona   # 120 control      (~$1)
 python -m src.judge --infile data/raw/persona.jsonl --out data/coded/persona.jsonl
 python -m src.analyze               # agreement, discriminant validity, effects
 python -m src.analyze_persona       # paired persona contrast
+python -m src.analyze_ci            # vignette-level intervals (camera-ready)
+python -m src.analyze_checks        # reviewer robustness checks (camera-ready)
 python -m src.figure && python -m src.figure2
 ```
 

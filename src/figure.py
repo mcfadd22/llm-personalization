@@ -19,9 +19,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from src.analyze import DIMS, OFFER_ORDER, load
-
-N_BOOT = 10000
-RNG = np.random.default_rng(20260903)
+from src.analyze_ci import VIGNETTES, t4_ci
 
 # Validated categorical slots 1 and 2 (dataviz reference palette): worst adjacent
 # CVD dE 9.1, normal-vision dE 19.6 on a light surface.
@@ -34,22 +32,24 @@ SERIES = {                       # colour + linestyle + marker = greyscale-safe
 XLAB = ["none", "knowledge", "+ history"]
 
 
-def boot_ci(values, alpha=0.05):
-    v = np.asarray(values, dtype=float)
-    if len(v) == 0:
-        return (np.nan, np.nan)
-    draws = RNG.choice(v, size=(N_BOOT, len(v)), replace=True).mean(axis=1)
-    return tuple(np.percentile(draws, [100 * alpha / 2, 100 * (1 - alpha / 2)]))
+def vignette_ci(cell, measure):
+    """95% t(4) interval over the five vignette means: responses sharing a vignette are
+    not independent, so the vignette is the unit of replication (src/analyze_ci.py)."""
+    means = np.array([cell[cell.vignette_id == v][measure].astype(float).mean()
+                      for v in VIGNETTES])
+    return t4_ci(means)
 
 
-def panel(ax, df, measure, ylim, ylabel, title):
+def panel(ax, df, measure, ylim, ylabel, title, bounds=(0, 3)):
     x = np.arange(len(OFFER_ORDER))
     for ctx, style in SERIES.items():
         means, lo, hi = [], [], []
         for offer in OFFER_ORDER:
-            v = df[(df.context == ctx) & (df.offer == offer)][measure].astype(float)
-            a, b = boot_ci(v)
-            means.append(v.mean()); lo.append(a); hi.append(b)
+            cell = df[(df.context == ctx) & (df.offer == offer)]
+            a, b = vignette_ci(cell, measure)
+            means.append(cell[measure].astype(float).mean()); lo.append(a); hi.append(b)
+        # A t interval is symmetric and can leave the scale; clip to what is possible.
+        lo, hi = np.clip(lo, *bounds), np.clip(hi, *bounds)
         means = np.array(means)
         ax.errorbar(x, means, yerr=[means - np.array(lo), np.array(hi) - means],
                     linewidth=2, markersize=8, capsize=3, elinewidth=1,
@@ -76,8 +76,8 @@ def main():
 
     for ax, dim in zip(axes[:3], DIMS):
         panel(ax, df, dim, (-0.12, 2.6), "mean score (0-3)", dim.upper())
-    panel(axes[3], df, "fabrication", (-0.02, 0.52), "proportion of trials",
-          "FABRICATED HISTORY")
+    panel(axes[3], df, "fabrication", (-0.02, 0.72), "proportion of trials",
+          "FABRICATED HISTORY", bounds=(0, 1))
 
     # Direct labels on the panel the paper turns on: the empty baseline and the
     # endpoint. A reader skimming figures should get the result without the body text.
@@ -86,8 +86,8 @@ def main():
     hi = fab[fab.offer == "relational"].fabrication
     axes[3].annotate(f"{int(lo.sum())}/{len(lo)}", xy=(0, lo.mean()),
                      xytext=(0.06, 0.055), ha="left", fontsize=8.5, color=INK)
-    axes[3].annotate(f"{int(hi.sum())}/{len(hi)}  ({hi.mean():.0%})", xy=(2, hi.mean()),
-                     xytext=(1.94, hi.mean() + 0.055), ha="right", fontsize=8.5,
+    axes[3].annotate(f"{int(hi.sum())}/{len(hi)}", xy=(2, hi.mean()),
+                     xytext=(1.88, hi.mean() + 0.05), ha="right", fontsize=8.5,
                      color=INK, fontweight="bold")
 
     # Mark the diagnostic cell across the three score panels: nothing unwarranted here.
