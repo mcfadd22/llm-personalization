@@ -50,7 +50,8 @@ tests/         condition-grid and materials gate (16 + 26 checks)
 
 180 responses: 5 vignettes x 2 context (no history / scripted history) x 3 offer
 (none / knowledge / knowledge + shared-history premise) x 3 systems x 2 repetitions.
-Plus a paired persona control of 120 responses, and 40 conditional debrief probes.
+System A = Claude Opus 4.5, System B = GPT-5.4, System C = L3.3 Euryale 70B (character-tuned),
+all via OpenRouter on 2026-09-03. Plus a paired persona control of 120 responses, and 40 conditional debrief probes.
 
 Responses are coded on three independent 0–3 dimensions — AGENCY, IDENTITY, RELATION —
 plus a fabrication flag, by a model that is not one of the subjects and is blind to
